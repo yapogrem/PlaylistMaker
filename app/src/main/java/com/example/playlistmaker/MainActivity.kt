@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         val displayFind = findViewById<Button>(R.id.buttonFind)
         displayFind.setOnClickListener {
-            val displayIntent = Intent(this, FindActivity::class.java)
+            val displayIntent = Intent(this, SearchActivity::class.java)
             startActivity(displayIntent)
         }
 

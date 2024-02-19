@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="main_button_text_size">24sp</dimen>
+    <dimen name="main_button_text_size">22sp</dimen>
     <dimen name="settings_text_size">20sp</dimen>
     <dimen name="main_button_corner_radius">16dp</dimen>
     <dimen name="main_button_icon_padding">8dp</dimen>
@@ -8,6 +8,17 @@
     <dimen name="settings_frame_layout_padding_top">20dp</dimen>
     <dimen name="settings_text_padding_start">16dp</dimen>
     <dimen name="settings_image_padding_end">12dp</dimen>
+    <dimen name="find_padding_horizontal">16dp</dimen>
+    <dimen name="find_margin_start">16dp</dimen>
+    <dimen name="find_margin_end">12dp</dimen>
+    <dimen name="find_padding_start">16dp</dimen>
+    <dimen name="find_padding_top">12dp</dimen>
+    <dimen name="find_padding_bottom">12dp</dimen>
+    <dimen name="find_text_size">26sp</dimen>
+
+
+
+
 
 
 </resources>
