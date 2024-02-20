@@ -1,16 +1,23 @@
 package com.example.playlistmaker
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
 
 class SettingsActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        val displayMain = findViewById<ImageButton>(R.id.settings_back)
+        displayMain.setOnClickListener {
+            val displayIntent = Intent(this, MainActivity::class.java)
+            startActivity(displayIntent)
+        }
 
         val displayShare= findViewById<ImageButton>(R.id.settingsShare)
         displayShare.setOnClickListener {
@@ -25,15 +32,16 @@ class SettingsActivity : AppCompatActivity() {
 
         val displaySupport= findViewById<ImageButton>(R.id.settingsSupport)
         displaySupport.setOnClickListener {
-            val message = getString(R.string.settings_support_message)
-            val shareIntent = Intent(Intent.ACTION_SENDTO)
-            val subject = getString(R.string.settings_support_subject)
-            val mail = getString(R.string.settings_support_mail)
-            shareIntent.data = Uri.parse("mailto:")
-            shareIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(mail))
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-            shareIntent.putExtra(Intent.EXTRA_TEXT, message)
-            startActivity(shareIntent)
+            Intent(Intent.ACTION_SENDTO).apply {
+                val message = getString(R.string.settings_support_message)
+                val subject = getString(R.string.settings_support_subject)
+                val mail = getString(R.string.settings_support_mail)
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(mail))
+                putExtra(Intent.EXTRA_SUBJECT, subject)
+                putExtra(Intent.EXTRA_TEXT, message)
+                startActivity(this)
+            }
         }
 
         val displayUserAgreement = findViewById<ImageButton>(R.id.settingsUserAgreement)

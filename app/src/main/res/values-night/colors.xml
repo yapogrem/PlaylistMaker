@@ -6,7 +6,7 @@
     <color name="settings_image_color">#FFFFFF</color>
     <color name="settings_image_background_color">#000000</color>
     <color name="find_arrow_back_color">#FFFFFF</color>
-    <color name="find_input_text">#000000</color>
     <color name="find_input_background">#FFFFFF</color>
+    <color name="find_hint_text">#1A1B22</color>
 
 </resources>

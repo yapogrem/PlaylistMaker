@@ -15,14 +15,14 @@
         android:paddingHorizontal="@dimen/find_padding_horizontal">
         >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/find_margin_start"
-        android:layout_gravity="center_vertical"
-        android:layout_marginEnd="@dimen/find_margin_end"
-        android:src="@drawable/arrow_back"
-        />
+        <ImageButton
+            android:id="@+id/settings_back"
+            style="@style/SettingsImageStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/arrow_back" />
+
     <TextView
         android:text="@string/main_find"
         android:layout_width="wrap_content"
@@ -31,8 +31,10 @@
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
         android:textSize="22sp"
+        android:textColor="@color/settings_text_color"
+        android:textFontWeight="500"
+        android:fontFamily="@font/ys_display_medium"
         tools:ignore="RtlSymmetry"
-        style="SettingsTextColor"
         />
 
 </LinearLayout>
@@ -50,7 +52,7 @@
             android:layout_height="48dp"
             android:drawableStart="@drawable/find_hint"
             android:drawablePadding="8dp"
-            android:drawableTint="@color/find_input_text"
+            android:drawableTint="@color/find_hint_text"
             android:hint="@string/main_find"
             android:inputType="text"
             android:maxLength="255"
@@ -59,8 +61,11 @@
             android:paddingEnd="32dp"
             android:singleLine="true"
             android:lines="1"
+            android:textFontWeight="400"
+            android:fontFamily="@font/ys_display_medium"
             android:background="@drawable/rounded_background"
-            style="@style/FindInputColors"
+            android:textColor="@color/find_input_text"
+            android:textColorHint="@color/find_hint_text"
             />
         <ImageView
             android:id="@+id/clear_search"

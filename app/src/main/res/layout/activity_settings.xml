@@ -14,6 +14,15 @@
         android:layout_marginTop="4dp"
         android:orientation="horizontal">
 
+        <ImageButton
+            android:id="@+id/settings_back"
+            style="@style/SettingsImageStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/find_margin_start"
+            android:layout_marginEnd="@dimen/find_margin_end"
+            android:src="@drawable/arrow_back" />
 
         <TextView
             android:text="@string/main_settings"
@@ -29,60 +38,60 @@
 
 
     </LinearLayout>
-    <FrameLayout
+
+    <RelativeLayout
         android:layout_marginTop="24dp"
-        style="@style/SettingsFrameLayoutStyle"
-        >
+        style="@style/SettingsRelativeLayoutStyle">
+
         <TextView
             android:text="@string/settings_black"
-            style="@style/SettingsTextStyle"
-            />
+            style="@style/SettingsTextStyle" />
+
         <Switch
             android:id="@+id/switch_on"
             tools:ignore="RtlSymmetry,UseSwitchCompatOrMaterialXml"
-            style="@style/SettingsImageStyle"
-            />
+            style="@style/SettingsImageStyle" />
 
-    </FrameLayout>
-    <FrameLayout
-        style="@style/SettingsFrameLayoutStyle"
-        >
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/SettingsRelativeLayoutStyle">
+
         <TextView
             android:text="@string/settings_share"
             style="@style/SettingsTextStyle"
-            tools:ignore="RtlSymmetry"
-            />
+            tools:ignore="RtlSymmetry" />
+
         <ImageButton
             android:id="@+id/settingsShare"
             style="@style/SettingsImageStyle"
-            android:src="@drawable/share"
-             />
-    </FrameLayout>
-    <FrameLayout
-        style="@style/SettingsFrameLayoutStyle"
-        >
+            android:src="@drawable/share" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/SettingsRelativeLayoutStyle">
+
         <TextView
             android:text="@string/settings_support"
             style="@style/SettingsTextStyle"
             tools:ignore="RtlSymmetry" />
+
         <ImageButton
             android:id="@+id/settingsSupport"
-            android:src="@drawable/support"
             style="@style/SettingsImageStyle"
-            tools:ignore="RtlSymmetry" />
-    </FrameLayout>
-    <FrameLayout
-        style="@style/SettingsFrameLayoutStyle"
-        >
+            android:src="@drawable/support" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/SettingsRelativeLayoutStyle">
+
         <TextView
             android:text="@string/settings_user_agreement"
             style="@style/SettingsTextStyle"
+            android:layout_centerVertical="true"
             tools:ignore="RtlSymmetry" />
+
         <ImageButton
             android:id="@+id/settingsUserAgreement"
             android:src="@drawable/arrow_forward"
-            style="@style/SettingsImageStyle"
-            tools:ignore="RtlSymmetry" />
-    </FrameLayout>
+            style="@style/SettingsImageStyle" />
+    </RelativeLayout>
 
 </LinearLayout>
