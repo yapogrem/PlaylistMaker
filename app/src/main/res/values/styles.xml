@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MainBackgroundColor">
+        <item name="android:background">@color/main_background</item>
+    </style>
+    <style name="MainFooterTextColor">
+        <item name="android:textColor">@color/main_footer_text_color</item>
+    </style>
+    <style name="MainButtonsStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:backgroundTint">@color/main_button_background_color</item>
+        <item name="android:textColor">@color/main_button_text_color</item>
+        <item name="android:textSize">@dimen/main_button_text_size</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/main_button_icon_padding</item>
+        <item name="iconTint">@color/main_button_text_color</item>
+        <item name="cornerRadius">@dimen/main_button_corner_radius</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="SettingsRelativeLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+
+    </style>
+    <style name="SettingsTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/settings_text_color</item>
+        <item name="android:textSize">@dimen/settings_text_size</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:paddingStart">@dimen/settings_text_padding_start</item>
+    </style>
+
+    <style name="SettingsImageStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingEnd">@dimen/settings_image_padding_end</item>
+        <item name="android:background">@color/settings_image_background_color</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+
+
+</resources>

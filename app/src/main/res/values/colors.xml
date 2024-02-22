@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="black2">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="background">#3772E7</color>
+    <color name="main_background">#3772E7</color>
+    <color name="main_footer_text_color">#FFFFFF</color>
+    <color name="main_button_text_color">#1A1B22</color>
+    <color name="main_button_background_color">#FFFFFF</color>
+    <color name="settings_background">#FFFFFF</color>
+    <color name="settings_text_color">#000000</color>
+    <color name="settings_image_color">#AEAFB4</color>
+    <color name="settings_image_background_color">#FFFFFF</color>
+    <color name="find_arrow_back_color">#1A1B22</color>
+    <color name="find_input_text">#1A1B22</color>
+    <color name="find_hint_text">#AEAFB4</color>
+    <color name="find_input_background">#E6E8EB</color>
 </resources>
