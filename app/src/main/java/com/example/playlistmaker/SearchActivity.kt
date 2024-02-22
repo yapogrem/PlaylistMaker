@@ -23,8 +23,7 @@ class SearchActivity : AppCompatActivity() {
 
         val displayMain = findViewById<ImageButton>(R.id.settings_back)
         displayMain.setOnClickListener {
-            val displayIntent = Intent(this, MainActivity::class.java)
-            startActivity(displayIntent)
+            finish()
         }
 
         val inputEditText = findViewById<EditText>(R.id.input_search)
