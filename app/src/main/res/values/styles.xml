@@ -33,7 +33,7 @@
     <style name="SettingsTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/settings_text_color</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">@dimen/settings_text_size</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:paddingStart">@dimen/settings_text_padding_start</item>
