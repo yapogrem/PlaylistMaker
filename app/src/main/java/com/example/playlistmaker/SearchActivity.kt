@@ -32,7 +32,6 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var trackAdapter: RecyclerView
     private lateinit var placeholderNetworkError: LinearLayout
     private lateinit var placeholderItemsNotFound: LinearLayout
-    private lateinit var placeholder: LinearLayout
     private lateinit var refreshButton: Button
 
 
