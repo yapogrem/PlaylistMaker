@@ -12,6 +12,14 @@
     <string name="settings_support_mail">ya0961@yandex.ru</string>
     <string name="settings_share_message">https://practicum.yandex.ru/profile/android-developer/</string>
     <string name="settings_agreement_url">https://yandex.ru/legal/practicum_offer/</string>
+    <string name="something_went_wrong">Чтото пошло не так</string>
+    <string name="nothing_found">Ничего не нашлось</string>
 
+    <string name="network_error">Проблемы со связью \n
+        \n
+        Загрузка не удалась. Проверьте \n
+        подключение к интернету
+    </string>
+    <string name="refresh">Обновить</string>
 
 </resources>
