@@ -1,14 +1,13 @@
 package com.example.playlistmaker
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -16,6 +15,15 @@ class SettingsActivity : AppCompatActivity() {
         val displayMain = findViewById<ImageButton>(R.id.settings_back)
         displayMain.setOnClickListener {
             finish()
+        }
+
+//Переключение Темной темы
+        val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
+//Переводим switch в сохраненное в SharedPreferences состояние
+        themeSwitcher.setChecked((applicationContext as App).darkTheme)
+//Переключаем тему по нажатию на switch
+        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+            (applicationContext as App).switchTheme(checked)
         }
 
         val displayShare= findViewById<ImageButton>(R.id.settingsShare)
@@ -49,5 +57,9 @@ class SettingsActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, url)
             startActivity(intent)
         }
+
     }
 }
+
+
+
