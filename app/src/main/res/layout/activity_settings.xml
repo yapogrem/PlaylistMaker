@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/some_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/some_id"
+    android:layout_x="0dp"
     android:background="@color/settings_background"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,40 +25,40 @@
             android:src="@drawable/arrow_back" />
 
         <TextView
-            android:text="@string/main_settings"
+            style="SettingsTextColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:paddingTop="10dp"
             android:paddingBottom="12dp"
+            android:text="@string/main_settings"
             android:textSize="26sp"
-            tools:ignore="RtlSymmetry"
-            style="SettingsTextColor"
-            />
-
+            tools:ignore="RtlSymmetry" />
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_marginTop="24dp"
-        style="@style/SettingsRelativeLayoutStyle">
-
-        <TextView
-            android:text="@string/settings_black"
-            style="@style/SettingsTextStyle" />
-
-        <Switch
-            android:id="@+id/switch_on"
-            tools:ignore="RtlSymmetry,UseSwitchCompatOrMaterialXml"
-            style="@style/SettingsImageStyle" />
-
-    </RelativeLayout>
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/themeSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="21dp"
+        android:background="@color/settings_background"
+        android:checked="true"
+        android:text="@string/settings_black"
+        android:textAllCaps="false"
+        android:textFontWeight="400"
+        android:textSize="@dimen/settings_text_size"
+        android:minHeight="0dp"
+        />
 
     <RelativeLayout style="@style/SettingsRelativeLayoutStyle">
 
         <TextView
-            android:text="@string/settings_share"
             style="@style/SettingsTextStyle"
+            android:text="@string/settings_share"
             tools:ignore="RtlSymmetry" />
 
         <ImageButton
@@ -70,8 +70,8 @@
     <RelativeLayout style="@style/SettingsRelativeLayoutStyle">
 
         <TextView
-            android:text="@string/settings_support"
             style="@style/SettingsTextStyle"
+            android:text="@string/settings_support"
             tools:ignore="RtlSymmetry" />
 
         <ImageButton
@@ -83,15 +83,15 @@
     <RelativeLayout style="@style/SettingsRelativeLayoutStyle">
 
         <TextView
-            android:text="@string/settings_user_agreement"
             style="@style/SettingsTextStyle"
             android:layout_centerVertical="true"
+            android:text="@string/settings_user_agreement"
             tools:ignore="RtlSymmetry" />
 
         <ImageButton
             android:id="@+id/settingsUserAgreement"
-            android:src="@drawable/arrow_forward"
-            style="@style/SettingsImageStyle" />
+            style="@style/SettingsImageStyle"
+            android:src="@drawable/arrow_forward" />
     </RelativeLayout>
 
 </LinearLayout>

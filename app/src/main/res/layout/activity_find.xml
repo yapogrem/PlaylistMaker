@@ -34,7 +34,6 @@
         android:textColor="@color/text_color"
         android:textFontWeight="500"
         android:fontFamily="@font/ys_display_medium"
-        tools:ignore="RtlSymmetry"
         />
 
 </LinearLayout>
@@ -82,7 +81,7 @@
             />
     </FrameLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerTrack"
+        android:id="@+id/recyclerViewTrack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -114,14 +113,13 @@
             android:textFontWeight="400"
             android:textSize="20sp" />
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/network_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
-
+        tools:visibility="gone"
         >
         <ImageView
             android:layout_width="wrap_content"
@@ -152,6 +150,52 @@
             android:insetBottom="0dp"
             android:padding="0dp"
             android:text="@string/refresh"
+            android:textAllCaps="false"
+            android:textColor="@color/settings_background"
+            android:textFontWeight="500"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/ys_display_medium"
+            android:paddingTop="42dp"
+            android:paddingBottom="20dp"
+            android:text="@string/search_history"
+            android:textColor="@color/text_color"
+            android:textFontWeight="500"
+            android:textSize="20sp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerSearchHistory"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
+        <Button
+            android:id="@+id/clearHistoryButton"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/text_color"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
+            android:text="@string/clear_history"
             android:textAllCaps="false"
             android:textColor="@color/settings_background"
             android:textFontWeight="500"
