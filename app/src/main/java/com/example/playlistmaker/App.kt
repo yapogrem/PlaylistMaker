@@ -4,19 +4,17 @@ import android.app.Application
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
 
-
+const val PLAYLIST_MAKER = "playlist_maker_shared_preferences"
+const val NIGHT_MODE_KEY = "night_mode_key"
 
 
 class App : Application() {
-    companion object{
-        const val PLAYLISTMAKER = "playlist_maker_shared_preferences"
-        const val NIGHT_MODE_KEY = "night_mode_key"
-    }
+
     var darkTheme = false
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate() {
         super.onCreate()
-        sharedPreferences = getSharedPreferences(PLAYLISTMAKER, MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(PLAYLIST_MAKER, MODE_PRIVATE)
         darkTheme = sharedPreferences.getBoolean(NIGHT_MODE_KEY, false)
         if (darkTheme) {
             switchTheme(true)
