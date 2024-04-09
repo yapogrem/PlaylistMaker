@@ -18,11 +18,6 @@ class MediaActivity : AppCompatActivity() {
     private lateinit var mediaTrackImage: ImageView
     private lateinit var mediaTrackName: TextView
     private lateinit var mediaArtistName: TextView
-
-    //    private lateinit var mediaButtonPlayList: ImageView
-//    private lateinit var mediaButtonPlay: ImageView
-//    private lateinit var mediaButtonFavorites: ImageView
-//    private lateinit var mediaTrackTime: TextView
     private lateinit var mediaTrackDuration: TextView
     private lateinit var mediaTrackAlbum: TextView
     private lateinit var mediaTrackYear: TextView
@@ -37,10 +32,6 @@ class MediaActivity : AppCompatActivity() {
         mediaTrackImage = findViewById(R.id.media_track_image)
         mediaTrackName = findViewById(R.id.media_track_name)
         mediaArtistName = findViewById(R.id.media_artist_name)
-//        mediaButtonPlayList = findViewById(R.id.media_button_play_list)
-//        mediaButtonPlay = findViewById(R.id.media_button_play)
-//        mediaButtonFavorites = findViewById(R.id.media_button_favorites)
-//        mediaTrackTime = findViewById(R.id.media_track_time)
         mediaTrackDuration = findViewById(R.id.media_track_duration)
         mediaTrackAlbum = findViewById(R.id.media_track_album)
         mediaTrackYear = findViewById(R.id.media_track_year)

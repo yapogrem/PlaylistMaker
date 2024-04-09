@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/some_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -47,11 +48,13 @@
         android:layout_marginBottom="21dp"
         android:background="@color/settings_background"
         android:checked="true"
+        app:thumbTint="@color/settings_switch_color"
         android:text="@string/settings_black"
         android:textAllCaps="false"
         android:textFontWeight="400"
         android:textSize="@dimen/settings_text_size"
         android:minHeight="0dp"
+        app:trackTint="@color/settings_switch_background_color"
         />
 
     <RelativeLayout style="@style/SettingsRelativeLayoutStyle">
