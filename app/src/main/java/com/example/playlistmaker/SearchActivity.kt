@@ -37,8 +37,8 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchHistory: SearchHistory
 
     private var tracks = ArrayList<Track>()
-    private lateinit var track_adapter: TrackAdapter
-    private lateinit var search_history_adapter: SearchHistoryAdapter
+    private lateinit var trackAdapter: TrackAdapter
+    private lateinit var searchHistoryAdapter: SearchHistoryAdapter
     private var searchField: String = ""
 
     @SuppressLint("WrongViewCast", "MissingInflatedId", "NotifyDataSetChanged")
@@ -47,10 +47,10 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_find)
 
 
-        val sharedPreferences = getSharedPreferences(App.PLAYLISTMAKER, MODE_PRIVATE)
-        track_adapter = TrackAdapter(SearchHistory(sharedPreferences))
+        val sharedPreferences = getSharedPreferences(PLAYLIST_MAKER, MODE_PRIVATE)
+        trackAdapter = TrackAdapter(SearchHistory(sharedPreferences))
         searchHistory = SearchHistory(sharedPreferences)
-        search_history_adapter = SearchHistoryAdapter(searchHistory)
+        searchHistoryAdapter = SearchHistoryAdapter(searchHistory)
 
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -79,10 +79,10 @@ class SearchActivity : AppCompatActivity() {
         recyclerSearchHistory = findViewById(R.id.recyclerSearchHistory)
         clearHistoryButton = findViewById(R.id.clearHistoryButton)
 
-        track_adapter.tracks = tracks
-        recyclerViewTrack.adapter = track_adapter
+        trackAdapter.tracks = tracks
+        recyclerViewTrack.adapter = trackAdapter
 
-        recyclerSearchHistory.adapter = search_history_adapter
+        recyclerSearchHistory.adapter = searchHistoryAdapter
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -107,7 +107,7 @@ class SearchActivity : AppCompatActivity() {
 
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(inputEditText.windowToken, 0)
-            search_history_adapter.notifyDataSetChanged()
+            searchHistoryAdapter.notifyDataSetChanged()
             showHistory()
         }
 
@@ -149,7 +149,7 @@ class SearchActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun showHistory() {
         if (searchHistory.getItemCount() == 0) clearTracks() else {
-            search_history_adapter.notifyDataSetChanged()
+            searchHistoryAdapter.notifyDataSetChanged()
             recyclerViewTrack.isVisible = false
             placeholderNetworkError.isVisible = false
             placeholderItemsNotFound.isVisible = false
@@ -194,7 +194,7 @@ class SearchActivity : AppCompatActivity() {
                         tracks.clear()
                         if (response.body()?.results?.isNotEmpty() == true) {
                             tracks.addAll(response.body()?.results!!)
-                            track_adapter.notifyDataSetChanged()
+                            trackAdapter.notifyDataSetChanged()
                         }
                         if (tracks.isEmpty()) {
                             showItemsNoFound()

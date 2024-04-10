@@ -1,9 +1,15 @@
 package com.example.playlistmaker
 
-data class Track (
-    val trackId: Long,
-    val trackName: String,
-    val artistName: String,
-    val trackTimeMillis: Int,
-    val artworkUrl100: String
-)
+import java.io.Serializable
+
+class Track : Serializable {
+
+    val artistName: String? = null
+    val collectionName: String? = null
+    val trackName: String? = null
+    val artworkUrl100: String? = null
+    val trackTimeMillis: Int? = null
+    val country: String? = null
+    val primaryGenreName: String? = null
+    val releaseDate: String? = null
+}

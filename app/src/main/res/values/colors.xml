@@ -8,9 +8,18 @@
     <color name="text_color">#000000</color>
     <color name="settings_image_color">#AEAFB4</color>
     <color name="settings_image_background_color">#FFFFFF</color>
+    <color name="settings_switch_color">#AEAFB4</color>
+    <color name="settings_switch_background_color">#E6E8EB</color>
     <color name="find_arrow_back_color">#1A1B22</color>
     <color name="find_input_text">#1A1B22</color>
     <color name="find_hint_text">#AEAFB4</color>
     <color name="track_second">#AEAFB4</color>
     <color name="find_input_background">#E6E8EB</color>
+    <color name="media_background_button">#1A1B22</color>
+    <color name="media_white_black">#FFFFFF</color>
+    <color name="media_black_white">#000000</color>
+    <color name="media_button_color">#1A1B22</color>
+
+
+
 </resources>

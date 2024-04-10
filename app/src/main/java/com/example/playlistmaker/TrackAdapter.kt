@@ -1,10 +1,12 @@
 package com.example.playlistmaker
-import android.view.ViewGroup
 
+import android.content.Intent
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-class TrackAdapter(val searchHistory: SearchHistory) : RecyclerView.Adapter<TrackViewHolder> () {
+class TrackAdapter(private val searchHistory: SearchHistory) :
+    RecyclerView.Adapter<TrackViewHolder>() {
     var tracks = ArrayList<Track>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         return TrackViewHolder(parent)
@@ -13,6 +15,9 @@ class TrackAdapter(val searchHistory: SearchHistory) : RecyclerView.Adapter<Trac
         val track = tracks[position]
         holder.itemView.setOnClickListener {
             searchHistory.saveTrackInSearchHistory(track)
+            val intent = Intent(holder.itemView.context, MediaActivity::class.java)
+            intent.putExtra("track", track)
+            holder.itemView.context.startActivity(intent)
         }
         holder.bind(tracks[position])
     }
