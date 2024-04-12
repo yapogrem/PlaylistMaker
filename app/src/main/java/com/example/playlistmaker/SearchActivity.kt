@@ -35,7 +35,6 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var recyclerSearchHistory: RecyclerView
     private lateinit var clearHistoryButton: Button
     private lateinit var searchHistory: SearchHistory
-
     private var tracks = ArrayList<Track>()
     private lateinit var trackAdapter: TrackAdapter
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
@@ -48,8 +47,8 @@ class SearchActivity : AppCompatActivity() {
 
 
         val sharedPreferences = getSharedPreferences(PLAYLIST_MAKER, MODE_PRIVATE)
-        trackAdapter = TrackAdapter(SearchHistory(sharedPreferences))
         searchHistory = SearchHistory(sharedPreferences)
+        trackAdapter = TrackAdapter(searchHistory)
         searchHistoryAdapter = SearchHistoryAdapter(searchHistory)
 
         val interceptor = HttpLoggingInterceptor()
@@ -98,7 +97,7 @@ class SearchActivity : AppCompatActivity() {
 
         clearHistoryButton.setOnClickListener {
             searchHistory.clearSearchHistory()
-            clearTracks()
+            showEmptyTracks()
         }
 
 
@@ -107,7 +106,7 @@ class SearchActivity : AppCompatActivity() {
 
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(inputEditText.windowToken, 0)
-            searchHistoryAdapter.notifyDataSetChanged()
+//            searchHistoryAdapter.notifyDataSetChanged()
             showHistory()
         }
 
@@ -119,14 +118,15 @@ class SearchActivity : AppCompatActivity() {
                 searchField = s.toString()
                 clearButton.isVisible = clearButtonVisibility(s)
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
+                    searchHistoryAdapter.notifyDataSetChanged()
                     showHistory()
-                } else clearTracks()
+                } else showEmptyTracks()
             }
             override fun afterTextChanged(s: Editable?) {
             }
         }
         inputEditText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus && inputEditText.text.isEmpty()) showHistory() else clearTracks()
+            if (hasFocus && inputEditText.text.isEmpty()) showHistory() else showEmptyTracks()
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
         inputEditText.setText(searchField)
@@ -148,7 +148,8 @@ class SearchActivity : AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showHistory() {
-        if (searchHistory.getItemCount() == 0) clearTracks() else {
+        searchHistoryAdapter.notifyDataSetChanged()
+        if (searchHistory.getItemCount() == 0) showEmptyTracks() else {
             searchHistoryAdapter.notifyDataSetChanged()
             recyclerViewTrack.isVisible = false
             placeholderNetworkError.isVisible = false
@@ -175,7 +176,8 @@ class SearchActivity : AppCompatActivity() {
         placeholderItemsNotFound.isVisible = true
         placeholderSearchHistory.isVisible = false
     }
-    private fun clearTracks(){
+
+    private fun showEmptyTracks() {
         recyclerViewTrack.isVisible = false
         placeholderNetworkError.isVisible = false
         placeholderItemsNotFound.isVisible = false
