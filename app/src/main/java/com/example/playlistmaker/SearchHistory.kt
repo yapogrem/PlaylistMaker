@@ -23,7 +23,6 @@ class SearchHistory(private val sharedPreferences: SharedPreferences) {
 
     fun saveTrackInSearchHistory(track: Track) {
         searchHistoryList.remove(track)
-
         if (searchHistoryList.size == 10) {
             searchHistoryList.removeLast()
         }
