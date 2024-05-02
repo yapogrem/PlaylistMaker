@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:contentDescription="@string/button_play"
-        android:src="@drawable/media_button_play"
+        tools:src="@drawable/media_button_pause"
         app:layout_constraintBottom_toTopOf="@+id/media_track_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

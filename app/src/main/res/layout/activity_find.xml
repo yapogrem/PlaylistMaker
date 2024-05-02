@@ -16,7 +16,7 @@
         >
 
         <ImageButton
-            android:id="@+id/settings_back"
+            android:id="@+id/search_back"
             style="@style/SettingsImageStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/refreshButton"
+            android:id="@+id/refresh_button"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_gravity="center"
@@ -158,11 +158,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/searchHistory"
+        android:id="@+id/search_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
+        tools:visibility="gone"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -178,7 +179,7 @@
             />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerSearchHistory"
+            android:id="@+id/recycler_search_history"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -186,7 +187,7 @@
             />
 
         <Button
-            android:id="@+id/clearHistoryButton"
+            android:id="@+id/clear_history_button"
             android:layout_width="148dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -201,5 +202,20 @@
             android:textColor="@color/settings_background"
             android:textFontWeight="500"
             android:textSize="14sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/find_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        >
+    <ProgressBar
+        android:layout_marginTop="140dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/find_progress_bar"
+/>
     </LinearLayout>
 </LinearLayout>
