@@ -50,6 +50,7 @@ class SearchActivity : AppCompatActivity() {
         val searchRunnable = Runnable { findTrack() }
         val debounce = Debounce()
 
+
         val sharedPreferences = getSharedPreferences(PLAYLIST_MAKER, MODE_PRIVATE)
         searchHistory = SearchHistory(sharedPreferences)
         trackAdapter = TrackAdapter(searchHistory)
@@ -65,7 +66,6 @@ class SearchActivity : AppCompatActivity() {
         recyclerSearchHistory = findViewById(R.id.recycler_search_history)
         clearHistoryButton = findViewById(R.id.clear_history_button)
         searchBack = findViewById(R.id.search_back)
-
 
         trackAdapter.tracks = tracks
         recyclerViewTrack.adapter = trackAdapter
@@ -204,10 +204,7 @@ class SearchActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val iTunesService = retrofit.create(ITunesApi::class.java)
-        val displayMain = findViewById<ImageButton>(R.id.settings_back)
-        displayMain.setOnClickListener {
-            finish()
-        }
+
 
         iTunesService.searchTrack(inputEditText.text.toString())
             .enqueue(object : Callback<TracksResponse> {
