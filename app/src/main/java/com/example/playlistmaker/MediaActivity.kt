@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-
 class MediaActivity : AppCompatActivity() {
     companion object {
         private const val STATE_DEFAULT = 0
@@ -21,10 +20,7 @@ class MediaActivity : AppCompatActivity() {
         private const val STATE_PLAYING = 2
         private const val STATE_PAUSED = 3
     }
-
     private var playerState = STATE_DEFAULT
-
-
     private lateinit var mediaBack: ImageButton
     private lateinit var mediaTrackImage: ImageView
     private lateinit var mediaTrackName: TextView
@@ -37,13 +33,7 @@ class MediaActivity : AppCompatActivity() {
     private lateinit var mediaTrackCountry: TextView
     private lateinit var mediaButtonPlay: ImageView
     private lateinit var timer: MediaPlayTimer
-
-
     private var mediaPlayer = MediaPlayer()
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_media)
@@ -93,26 +83,21 @@ class MediaActivity : AppCompatActivity() {
         mediaTrackCountry.text = track.country
 
     }
-
     private fun getCoverArtwork(artworkUrl100: String) =
         artworkUrl100.replaceAfterLast('/', "512x512bb.jpg")
-
     private fun getYear(releaseDate: String): Int {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
         val convertedDate = LocalDateTime.parse(releaseDate, formatter)
         return convertedDate.year
     }
-
     override fun onPause() {
         super.onPause()
         pausePlayer()
     }
-
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
     }
-
     private fun playbackControl() {
         when (playerState) {
             STATE_PLAYING -> {
@@ -124,7 +109,6 @@ class MediaActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun preparePlayer(track: Track) {
         mediaPlayer.setDataSource(track.previewUrl)
         mediaPlayer.prepareAsync()
@@ -138,14 +122,12 @@ class MediaActivity : AppCompatActivity() {
             timer.stop()
         }
     }
-
     private fun startPlayer() {
         mediaPlayer.start()
         mediaButtonPlay.setImageResource(R.drawable.media_button_pause)
         playerState = STATE_PLAYING
         timer.start()
     }
-
     private fun pausePlayer() {
         mediaPlayer.pause()
         mediaButtonPlay.setImageResource(R.drawable.media_button_play)

@@ -42,15 +42,12 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
     private var searchField: String = ""
 
-
     @SuppressLint("WrongViewCast", "MissingInflatedId", "NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find)
         val searchRunnable = Runnable { findTrack() }
         val debounce = Debounce()
-
-
         val sharedPreferences = getSharedPreferences(PLAYLIST_MAKER, MODE_PRIVATE)
         searchHistory = SearchHistory(sharedPreferences)
         trackAdapter = TrackAdapter(searchHistory)
@@ -66,17 +63,12 @@ class SearchActivity : AppCompatActivity() {
         recyclerSearchHistory = findViewById(R.id.recycler_search_history)
         clearHistoryButton = findViewById(R.id.clear_history_button)
         searchBack = findViewById(R.id.search_back)
-
         trackAdapter.tracks = tracks
         recyclerViewTrack.adapter = trackAdapter
-
         recyclerSearchHistory.adapter = searchHistoryAdapter
-
-        //Кнопка назад
         searchBack.setOnClickListener {
             finish()
         }
-
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 showProgressBar()
@@ -88,13 +80,10 @@ class SearchActivity : AppCompatActivity() {
             showProgressBar()
             findTrack()
         }
-
         clearHistoryButton.setOnClickListener {
             searchHistory.clearSearchHistory()
             showEmptyTracks()
         }
-
-
         clearButton.setOnClickListener {
             inputEditText.setText("")
 
@@ -103,7 +92,6 @@ class SearchActivity : AppCompatActivity() {
             debounce.canselSearchDebounce(searchRunnable)
             showHistory()
         }
-
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -128,7 +116,6 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.addTextChangedListener(simpleTextWatcher)
         inputEditText.setText(searchField)
         showHistory()
-
     }
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString("searchField", searchField)
@@ -142,7 +129,6 @@ class SearchActivity : AppCompatActivity() {
     private fun clearButtonVisibility(s: CharSequence?): Boolean {
         return s?.isNotBlank() == true
     }
-
     @SuppressLint("NotifyDataSetChanged")
     private fun showHistory() {
         searchHistoryAdapter.notifyDataSetChanged()
