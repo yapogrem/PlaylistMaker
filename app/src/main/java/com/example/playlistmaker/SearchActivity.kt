@@ -71,13 +71,11 @@ class SearchActivity : AppCompatActivity() {
         }
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                showProgressBar()
                 findTrack()
             }
             false
         }
         refreshButton.setOnClickListener{
-            showProgressBar()
             findTrack()
         }
         clearHistoryButton.setOnClickListener {
@@ -181,6 +179,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun findTrack() {
+        showProgressBar()
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
