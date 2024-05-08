@@ -31,7 +31,9 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var placeholderNetworkError: LinearLayout
     private lateinit var placeholderItemsNotFound: LinearLayout
     private lateinit var placeholderSearchHistory: LinearLayout
+    private lateinit var progressBar: LinearLayout
     private lateinit var refreshButton: Button
+    private lateinit var searchBack: ImageButton
     private lateinit var recyclerSearchHistory: RecyclerView
     private lateinit var clearHistoryButton: Button
     private lateinit var searchHistory: SearchHistory
@@ -44,83 +46,64 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find)
-
-
+        val searchRunnable = Runnable { findTrack() }
+        val debounce = Debounce()
         val sharedPreferences = getSharedPreferences(PLAYLIST_MAKER, MODE_PRIVATE)
         searchHistory = SearchHistory(sharedPreferences)
         trackAdapter = TrackAdapter(searchHistory)
         searchHistoryAdapter = SearchHistoryAdapter(searchHistory)
-
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
-
-        val iTunesBaseUrl = "https://itunes.apple.com"
-        val retrofit = Retrofit.Builder()
-            .baseUrl(iTunesBaseUrl).client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val iTunesService = retrofit.create(ITunesApi::class.java)
-
-
-        val displayMain = findViewById<ImageButton>(R.id.settings_back)
-        displayMain.setOnClickListener {
-            finish()
-        }
-
         inputEditText = findViewById(R.id.input_search)
         clearButton = findViewById(R.id.clear_search)
         recyclerViewTrack = findViewById(R.id.recyclerViewTrack)
         placeholderNetworkError = findViewById(R.id.network_error)
         placeholderItemsNotFound = findViewById(R.id.items_not_found)
-        refreshButton = findViewById(R.id.refreshButton)
-        placeholderSearchHistory = findViewById(R.id.searchHistory)
-        recyclerSearchHistory = findViewById(R.id.recyclerSearchHistory)
-        clearHistoryButton = findViewById(R.id.clearHistoryButton)
-
+        progressBar = findViewById(R.id.find_progress_bar)
+        refreshButton = findViewById(R.id.refresh_button)
+        placeholderSearchHistory = findViewById(R.id.search_history)
+        recyclerSearchHistory = findViewById(R.id.recycler_search_history)
+        clearHistoryButton = findViewById(R.id.clear_history_button)
+        searchBack = findViewById(R.id.search_back)
         trackAdapter.tracks = tracks
         recyclerViewTrack.adapter = trackAdapter
-
         recyclerSearchHistory.adapter = searchHistoryAdapter
-
+        searchBack.setOnClickListener {
+            finish()
+        }
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                showTracks()
-                findTrack(iTunesService)
+                findTrack()
             }
             false
         }
         refreshButton.setOnClickListener{
-            showTracks()
-            findTrack(iTunesService)
+            findTrack()
         }
-
         clearHistoryButton.setOnClickListener {
             searchHistory.clearSearchHistory()
             showEmptyTracks()
         }
-
-
         clearButton.setOnClickListener {
             inputEditText.setText("")
 
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(inputEditText.windowToken, 0)
-//            searchHistoryAdapter.notifyDataSetChanged()
+            debounce.canselSearchDebounce(searchRunnable)
             showHistory()
         }
-
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s?.isEmpty()!= true){
+                    debounce.searchDebounce(searchRunnable)
+                }
                 searchField = s.toString()
                 clearButton.isVisible = clearButtonVisibility(s)
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
                     searchHistoryAdapter.notifyDataSetChanged()
                     showHistory()
-                } else showEmptyTracks()
+                } else
+                    showEmptyTracks()
             }
             override fun afterTextChanged(s: Editable?) {
             }
@@ -131,7 +114,6 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.addTextChangedListener(simpleTextWatcher)
         inputEditText.setText(searchField)
         showHistory()
-
     }
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString("searchField", searchField)
@@ -145,7 +127,6 @@ class SearchActivity : AppCompatActivity() {
     private fun clearButtonVisibility(s: CharSequence?): Boolean {
         return s?.isNotBlank() == true
     }
-
     @SuppressLint("NotifyDataSetChanged")
     private fun showHistory() {
         searchHistoryAdapter.notifyDataSetChanged()
@@ -155,6 +136,7 @@ class SearchActivity : AppCompatActivity() {
             placeholderNetworkError.isVisible = false
             placeholderItemsNotFound.isVisible = false
             placeholderSearchHistory.isVisible = true
+            progressBar.isVisible = false
         }
 
     }
@@ -163,18 +145,21 @@ class SearchActivity : AppCompatActivity() {
         placeholderNetworkError.isVisible = false
         placeholderItemsNotFound.isVisible = false
         placeholderSearchHistory.isVisible = false
+        progressBar.isVisible = false
     }
     private fun showNetworkError() {
         recyclerViewTrack.isVisible = false
         placeholderNetworkError.isVisible = true
         placeholderItemsNotFound.isVisible = false
         placeholderSearchHistory.isVisible = false
+        progressBar.isVisible = false
     }
     private fun showItemsNoFound() {
         recyclerViewTrack.isVisible = false
         placeholderNetworkError.isVisible = false
         placeholderItemsNotFound.isVisible = true
         placeholderSearchHistory.isVisible = false
+        progressBar.isVisible = false
     }
 
     private fun showEmptyTracks() {
@@ -182,9 +167,30 @@ class SearchActivity : AppCompatActivity() {
         placeholderNetworkError.isVisible = false
         placeholderItemsNotFound.isVisible = false
         placeholderSearchHistory.isVisible = false
+        progressBar.isVisible = false
     }
 
-    private fun findTrack(iTunesService:ITunesApi){
+    private fun showProgressBar() {
+        recyclerViewTrack.isVisible = false
+        placeholderNetworkError.isVisible = false
+        placeholderItemsNotFound.isVisible = false
+        placeholderSearchHistory.isVisible = false
+        progressBar.isVisible = true
+    }
+
+    private fun findTrack() {
+        showProgressBar()
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+        val iTunesBaseUrl = "https://itunes.apple.com"
+        val retrofit = Retrofit.Builder()
+            .baseUrl(iTunesBaseUrl).client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val iTunesService = retrofit.create(ITunesApi::class.java)
+
+
         iTunesService.searchTrack(inputEditText.text.toString())
             .enqueue(object : Callback<TracksResponse> {
                 @SuppressLint("NotifyDataSetChanged")
@@ -197,6 +203,7 @@ class SearchActivity : AppCompatActivity() {
                         if (response.body()?.results?.isNotEmpty() == true) {
                             tracks.addAll(response.body()?.results!!)
                             trackAdapter.notifyDataSetChanged()
+                            showTracks()
                         }
                         if (tracks.isEmpty()) {
                             showItemsNoFound()

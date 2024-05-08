@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class SearchHistoryAdapter(private val searchHistory: SearchHistory) : RecyclerView.Adapter<TrackViewHolder> () {
-
+    private val debounce = Debounce()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         return TrackViewHolder(parent)
     }
@@ -16,11 +16,13 @@ class SearchHistoryAdapter(private val searchHistory: SearchHistory) : RecyclerV
         val track = searchHistory.getTrackByPosition(position)
         holder.bind(track)
         holder.itemView.setOnClickListener {
-            searchHistory.saveTrackInSearchHistory(track)
-            val intent = Intent(holder.itemView.context, MediaActivity::class.java)
-            intent.putExtra("track", track)
-            holder.itemView.context.startActivity(intent)
-            notifyDataSetChanged()
+            if (debounce.clickDebounce()) {
+                searchHistory.saveTrackInSearchHistory(track)
+                val intent = Intent(holder.itemView.context, MediaActivity::class.java)
+                intent.putExtra("track", track)
+                holder.itemView.context.startActivity(intent)
+                notifyDataSetChanged()
+            }
         }
     }
     override fun getItemCount():Int = searchHistory.getItemCount()
