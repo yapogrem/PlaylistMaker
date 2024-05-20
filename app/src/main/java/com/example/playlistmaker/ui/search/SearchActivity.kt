@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.ui.search
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -14,6 +14,15 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.ui.player.Debounce
+import com.example.playlistmaker.PLAYLIST_MAKER
+import com.example.playlistmaker.R
+import com.example.playlistmaker.SearchHistory
+import com.example.playlistmaker.SearchHistoryAdapter
+import com.example.playlistmaker.TrackAdapter
+import com.example.playlistmaker.data.dto.TracksResponse
+import com.example.playlistmaker.data.network.ITunesApi
+import com.example.playlistmaker.domain.models.Track
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -180,9 +189,11 @@ class SearchActivity : AppCompatActivity() {
 
     private fun findTrack() {
         showProgressBar()
+
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
         val iTunesBaseUrl = "https://itunes.apple.com"
         val retrofit = Retrofit.Builder()
             .baseUrl(iTunesBaseUrl).client(client)
@@ -201,7 +212,8 @@ class SearchActivity : AppCompatActivity() {
                     if (response.code() == 200) {
                         tracks.clear()
                         if (response.body()?.results?.isNotEmpty() == true) {
-                            tracks.addAll(response.body()?.results!!)
+                            response.body()?.results?.forEach { println(it)  }
+                            tracks.addAll(response.body()?.results!!.map { Track.mapped(it) })
                             trackAdapter.notifyDataSetChanged()
                             showTracks()
                         }
