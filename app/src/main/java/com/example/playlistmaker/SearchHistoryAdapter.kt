@@ -5,7 +5,7 @@ import android.content.Intent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.ui.player.Debounce
-import com.example.playlistmaker.ui.player.MediaActivity
+import com.example.playlistmaker.player.ui.MediaActivity
 
 
 class SearchHistoryAdapter(private val searchHistory: SearchHistory) : RecyclerView.Adapter<TrackViewHolder> () {

@@ -1,4 +1,4 @@
-package com.example.playlistmaker.ui.search
+package com.example.playlistmaker.search.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -22,6 +22,8 @@ import com.example.playlistmaker.SearchHistoryAdapter
 import com.example.playlistmaker.TrackAdapter
 import com.example.playlistmaker.data.dto.TracksResponse
 import com.example.playlistmaker.data.network.ITunesApi
+import com.example.playlistmaker.databinding.ActivityFindBinding
+import com.example.playlistmaker.databinding.ActivityMediaBinding
 import com.example.playlistmaker.domain.models.Track
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,18 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class SearchActivity : AppCompatActivity() {
-
-    private lateinit var inputEditText: EditText
-    private lateinit var clearButton: ImageView
-    private lateinit var recyclerViewTrack: RecyclerView
-    private lateinit var placeholderNetworkError: LinearLayout
-    private lateinit var placeholderItemsNotFound: LinearLayout
-    private lateinit var placeholderSearchHistory: LinearLayout
-    private lateinit var progressBar: LinearLayout
-    private lateinit var refreshButton: Button
-    private lateinit var searchBack: ImageButton
-    private lateinit var recyclerSearchHistory: RecyclerView
-    private lateinit var clearHistoryButton: Button
+    private lateinit var binding: ActivityFindBinding
     private lateinit var searchHistory: SearchHistory
     private var tracks = ArrayList<Track>()
     private lateinit var trackAdapter: TrackAdapter
@@ -54,47 +45,41 @@ class SearchActivity : AppCompatActivity() {
     @SuppressLint("WrongViewCast", "MissingInflatedId", "NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_find)
+        binding = ActivityFindBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         val searchRunnable = Runnable { findTrack() }
         val debounce = Debounce()
         val sharedPreferences = getSharedPreferences(PLAYLIST_MAKER, MODE_PRIVATE)
         searchHistory = SearchHistory(sharedPreferences)
         trackAdapter = TrackAdapter(searchHistory)
         searchHistoryAdapter = SearchHistoryAdapter(searchHistory)
-        inputEditText = findViewById(R.id.input_search)
-        clearButton = findViewById(R.id.clear_search)
-        recyclerViewTrack = findViewById(R.id.recyclerViewTrack)
-        placeholderNetworkError = findViewById(R.id.network_error)
-        placeholderItemsNotFound = findViewById(R.id.items_not_found)
-        progressBar = findViewById(R.id.find_progress_bar)
-        refreshButton = findViewById(R.id.refresh_button)
-        placeholderSearchHistory = findViewById(R.id.search_history)
-        recyclerSearchHistory = findViewById(R.id.recycler_search_history)
-        clearHistoryButton = findViewById(R.id.clear_history_button)
-        searchBack = findViewById(R.id.search_back)
+        val inputEditText = binding.inputSearch
         trackAdapter.tracks = tracks
-        recyclerViewTrack.adapter = trackAdapter
-        recyclerSearchHistory.adapter = searchHistoryAdapter
-        searchBack.setOnClickListener {
+        binding.recyclerViewTrack.adapter = trackAdapter
+        binding.recyclerSearchHistory.adapter = searchHistoryAdapter
+
+        binding.searchBack.setOnClickListener {
             finish()
         }
+
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 findTrack()
             }
             false
         }
-        refreshButton.setOnClickListener{
+        binding.refreshButton.setOnClickListener{
             findTrack()
         }
-        clearHistoryButton.setOnClickListener {
+        binding.clearHistoryButton.setOnClickListener {
             searchHistory.clearSearchHistory()
             showEmptyTracks()
         }
-        clearButton.setOnClickListener {
+        binding.clearSearch.setOnClickListener {
             inputEditText.setText("")
 
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(inputEditText.windowToken, 0)
             debounce.canselSearchDebounce(searchRunnable)
             showHistory()
@@ -107,7 +92,7 @@ class SearchActivity : AppCompatActivity() {
                     debounce.searchDebounce(searchRunnable)
                 }
                 searchField = s.toString()
-                clearButton.isVisible = clearButtonVisibility(s)
+                binding.clearSearch.isVisible = clearButtonVisibility(s)
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
                     searchHistoryAdapter.notifyDataSetChanged()
                     showHistory()
@@ -141,50 +126,50 @@ class SearchActivity : AppCompatActivity() {
         searchHistoryAdapter.notifyDataSetChanged()
         if (searchHistory.getItemCount() == 0) showEmptyTracks() else {
             searchHistoryAdapter.notifyDataSetChanged()
-            recyclerViewTrack.isVisible = false
-            placeholderNetworkError.isVisible = false
-            placeholderItemsNotFound.isVisible = false
-            placeholderSearchHistory.isVisible = true
-            progressBar.isVisible = false
+            binding.recyclerViewTrack.isVisible = false
+            binding.networkError.isVisible = false
+            binding.itemsNotFound.isVisible = false
+            binding.searchHistory.isVisible = true
+            binding.findProgressBar.isVisible = false
         }
 
     }
     private fun showTracks() {
-        recyclerViewTrack.isVisible = true
-        placeholderNetworkError.isVisible = false
-        placeholderItemsNotFound.isVisible = false
-        placeholderSearchHistory.isVisible = false
-        progressBar.isVisible = false
+        binding.recyclerViewTrack.isVisible = true
+        binding.networkError.isVisible = false
+        binding.itemsNotFound.isVisible = false
+        binding.searchHistory.isVisible = false
+        binding.findProgressBar.isVisible = false
     }
     private fun showNetworkError() {
-        recyclerViewTrack.isVisible = false
-        placeholderNetworkError.isVisible = true
-        placeholderItemsNotFound.isVisible = false
-        placeholderSearchHistory.isVisible = false
-        progressBar.isVisible = false
+        binding.recyclerViewTrack.isVisible = false
+        binding.networkError.isVisible = true
+        binding.itemsNotFound.isVisible = false
+        binding.searchHistory.isVisible = false
+        binding.findProgressBar.isVisible = false
     }
     private fun showItemsNoFound() {
-        recyclerViewTrack.isVisible = false
-        placeholderNetworkError.isVisible = false
-        placeholderItemsNotFound.isVisible = true
-        placeholderSearchHistory.isVisible = false
-        progressBar.isVisible = false
+        binding.recyclerViewTrack.isVisible = false
+        binding.networkError.isVisible = false
+        binding.itemsNotFound.isVisible = true
+        binding.searchHistory.isVisible = false
+        binding.findProgressBar.isVisible = false
     }
 
     private fun showEmptyTracks() {
-        recyclerViewTrack.isVisible = false
-        placeholderNetworkError.isVisible = false
-        placeholderItemsNotFound.isVisible = false
-        placeholderSearchHistory.isVisible = false
-        progressBar.isVisible = false
+        binding.recyclerViewTrack.isVisible = false
+        binding.networkError.isVisible = false
+        binding.itemsNotFound.isVisible = false
+        binding.searchHistory.isVisible = true
+        binding.findProgressBar.isVisible = false
     }
 
     private fun showProgressBar() {
-        recyclerViewTrack.isVisible = false
-        placeholderNetworkError.isVisible = false
-        placeholderItemsNotFound.isVisible = false
-        placeholderSearchHistory.isVisible = false
-        progressBar.isVisible = true
+        binding.recyclerViewTrack.isVisible = false
+        binding.networkError.isVisible = false
+        binding.itemsNotFound.isVisible = false
+        binding.searchHistory.isVisible = false
+        binding.findProgressBar.isVisible = true
     }
 
     private fun findTrack() {
@@ -202,7 +187,7 @@ class SearchActivity : AppCompatActivity() {
         val iTunesService = retrofit.create(ITunesApi::class.java)
 
 
-        iTunesService.searchTrack(inputEditText.text.toString())
+        iTunesService.searchTrack(binding.inputSearch.text.toString())
             .enqueue(object : Callback<TracksResponse> {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(
