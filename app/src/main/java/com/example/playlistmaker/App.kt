@@ -1,6 +1,7 @@
 package com.example.playlistmaker
 
 import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
@@ -11,12 +12,15 @@ import kotlin.properties.Delegates
 const val PLAYLIST_MAKER = "playlist_maker_shared_preferences"
 const val NIGHT_MODE_KEY = "night_mode_key"
 
+lateinit var appContext: Context
 
 class App : Application() {
+
     var darkTheme : Boolean = false
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate() {
         super.onCreate()
+
         Creator.app = this
         val systemTheme = isDarkThemeEnabled()
         sharedPreferences = getSharedPreferences(PLAYLIST_MAKER, MODE_PRIVATE)

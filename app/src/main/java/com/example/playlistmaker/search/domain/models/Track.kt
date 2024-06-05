@@ -1,11 +1,9 @@
-package com.example.playlistmaker.domain.models
+package com.example.playlistmaker.search.domain.models
 
-import com.example.playlistmaker.data.dto.TrackDto
+import com.example.playlistmaker.search.data.dto.TrackDto
 import java.io.Serializable
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
@@ -21,7 +19,7 @@ data class Track (
     var previewUrl: String? =null,
     ): Serializable{
         companion object{
-            fun mapped(dto:TrackDto):Track{
+            fun mapped(dto: TrackDto): Track {
                 val track = Track()
                 track.artistName = dto.artistName
                 track.collectionName = dto.collectionName

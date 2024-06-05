@@ -1,7 +1,10 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.search.data.Impl
 
-import android.content.SharedPreferences
-import com.example.playlistmaker.domain.models.Track
+import android.app.Application
+import android.content.Context
+import com.example.playlistmaker.PLAYLIST_MAKER
+import com.example.playlistmaker.search.data.SearchRepository
+import com.example.playlistmaker.search.domain.models.Track
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -9,12 +12,18 @@ import java.util.LinkedList
 
 const val SEARCH_HISTORY_KEY = "search_history_key"
 
-class SearchHistory(private val sharedPreferences: SharedPreferences) {
+class SearchRepositoryImpl(private val application:Application) : SearchRepository {
 
     private val searchHistoryList: LinkedList<Track>
 
+    private val sharedPrefs = application.getSharedPreferences(
+        PLAYLIST_MAKER,
+        Context.MODE_PRIVATE
+    )
+
+
     init {
-        val json = sharedPreferences.getString(SEARCH_HISTORY_KEY, null)
+        val json = sharedPrefs.getString(SEARCH_HISTORY_KEY, null)
         searchHistoryList = if (json == null) {
             LinkedList()
         } else {
@@ -22,28 +31,25 @@ class SearchHistory(private val sharedPreferences: SharedPreferences) {
         }
     }
 
-    fun saveTrackInSearchHistory(track: Track) {
+    override fun getSearchTracks(): List<Track> {
+        return searchHistoryList
+    }
+
+    override fun saveTrackInSearchHistory(track: Track): List<Track> {
         searchHistoryList.remove(track)
         if (searchHistoryList.size == 10) {
             searchHistoryList.removeLast()
         }
         searchHistoryList.addFirst(track)
-        sharedPreferences.edit()
+        sharedPrefs.edit()
             .putString(SEARCH_HISTORY_KEY, Gson().toJson(searchHistoryList))
             .apply()
+        return searchHistoryList
     }
 
-    fun clearSearchHistory() {
+    override fun clearSearchHistory() {
         searchHistoryList.clear()
-        sharedPreferences.edit().clear().apply()
-    }
-
-    fun getTrackByPosition(position: Int): Track {
-        return searchHistoryList[position]
-    }
-
-    fun getItemCount(): Int {
-        return searchHistoryList.size
+        sharedPrefs.edit().clear().apply()
     }
 
     private fun deserialaizer(json: String): LinkedList<Track> {

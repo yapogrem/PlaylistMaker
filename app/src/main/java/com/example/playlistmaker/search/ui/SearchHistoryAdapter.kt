@@ -1,31 +1,33 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.search.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.ui.player.Debounce
-import com.example.playlistmaker.player.ui.MediaActivity
+import com.example.playlistmaker.search.data.Debounce
+import com.example.playlistmaker.player.ui.PlayerActivity
 
 
-class SearchHistoryAdapter(private val searchHistory: SearchHistory) : RecyclerView.Adapter<TrackViewHolder> () {
-    private val debounce = Debounce()
+
+class SearchHistoryAdapter(private val viewModel: SearchViewModel) : RecyclerView.Adapter<TrackViewHolder> () {
+    private val debounce = Debounce(viewModel)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         return TrackViewHolder(parent)
     }
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
-        val track = searchHistory.getTrackByPosition(position)
+        val track = viewModel.getTrackByPositionHistory(position)
         holder.bind(track)
         holder.itemView.setOnClickListener {
             if (debounce.clickDebounce()) {
-                searchHistory.saveTrackInSearchHistory(track)
-                val intent = Intent(holder.itemView.context, MediaActivity::class.java)
+                viewModel.saveTrackInSearchHistory(track)
+                notifyDataSetChanged()
+                val intent = Intent(holder.itemView.context, PlayerActivity::class.java)
                 intent.putExtra("track", track)
                 holder.itemView.context.startActivity(intent)
-                notifyDataSetChanged()
+
             }
         }
     }
-    override fun getItemCount():Int = searchHistory.getItemCount()
+    override fun getItemCount():Int = viewModel.getCountHistory()
 }

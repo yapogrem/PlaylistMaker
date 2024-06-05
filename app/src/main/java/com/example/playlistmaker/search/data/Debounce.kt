@@ -1,11 +1,13 @@
-package com.example.playlistmaker.ui.player
+package com.example.playlistmaker.search.data
 
 import android.os.Handler
 import android.os.Looper
+import com.example.playlistmaker.search.ui.SearchViewModel
 
-class Debounce {
+class Debounce(private val viewModel: SearchViewModel) {
     private var isClickAllowed = true
     private val handler = Handler(Looper.getMainLooper())
+    lateinit var searchRunnable:Runnable
     fun clickDebounce() : Boolean {
         val current = isClickAllowed
         if (isClickAllowed) {
@@ -14,15 +16,17 @@ class Debounce {
         }
         return current
     }
-    fun searchDebounce(searchRunnable: Runnable) {
+    fun searchDebounce(searchString: String) {
+        searchRunnable = Runnable {  viewModel.findTrack(searchString) }
         handler.removeCallbacks(searchRunnable)
         handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
     }
-    fun canselSearchDebounce(searchRunnable: Runnable) {
+    fun canselSearchDebounce() {
         handler.removeCallbacks(searchRunnable)
     }
     companion object {
         private const val CLICK_DEBOUNCE_DELAY = 1000L
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
+
 }
