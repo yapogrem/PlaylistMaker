@@ -1,4 +1,4 @@
-package com.example.playlistmaker.search.data.Impl
+package com.example.playlistmaker.search.data.impl
 
 import com.example.playlistmaker.search.data.TracksResponse
 import com.example.playlistmaker.search.data.network.ITunesApi

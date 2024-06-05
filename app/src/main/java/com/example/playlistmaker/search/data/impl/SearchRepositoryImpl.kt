@@ -1,4 +1,4 @@
-package com.example.playlistmaker.search.data.Impl
+package com.example.playlistmaker.search.data.impl
 
 import android.app.Application
 import android.content.Context

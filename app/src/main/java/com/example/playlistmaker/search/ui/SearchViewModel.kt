@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.playlistmaker.search.data.Impl.SearchTrackRepositoryImpl
+import com.example.playlistmaker.search.data.impl.SearchTrackRepositoryImpl
 import com.example.playlistmaker.search.data.network.StatusRequest
 import com.example.playlistmaker.search.domain.SearchCallback
 import com.example.playlistmaker.search.domain.SearchHistoryInteractor

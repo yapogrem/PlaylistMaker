@@ -3,18 +3,13 @@ package com.example.playlistmaker.creator
 import android.app.Application
 import com.example.playlistmaker.App
 import com.example.playlistmaker.PLAYLIST_MAKER
-import com.example.playlistmaker.search.data.Impl.SearchRepositoryImpl
-import com.example.playlistmaker.search.data.SearchRepository
+import com.example.playlistmaker.search.data.impl.SearchRepositoryImpl
 import com.example.playlistmaker.search.domain.SearchHistoryInteractor
 import com.example.playlistmaker.search.domain.impl.SearchHistoryInteractorImpl
-import com.example.playlistmaker.settings.data.impl.SettingsRepositoryImpl
 import com.example.playlistmaker.settings.data.SettingsRepository
-import com.example.playlistmaker.settings.domain.SettingsInteractor
-import com.example.playlistmaker.settings.domain.impl.SettingsInteractorImpl
+import com.example.playlistmaker.settings.data.impl.SettingsRepositoryImpl
 import com.example.playlistmaker.sharing.data.ExternalNavigator
 import com.example.playlistmaker.sharing.data.impl.ExternalNavigatorImpl
-import com.example.playlistmaker.sharing.domain.SharingInteractor
-import com.example.playlistmaker.sharing.domain.impl.SharingInteractorImpl
 
 object Creator {
     lateinit var app: App
