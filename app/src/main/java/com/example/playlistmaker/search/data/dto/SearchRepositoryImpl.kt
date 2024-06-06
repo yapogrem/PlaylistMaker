@@ -1,4 +1,4 @@
-package com.example.playlistmaker.search.data.impl
+package com.example.playlistmaker.search.data.dto
 
 import android.app.Application
 import android.content.Context
@@ -12,7 +12,7 @@ import java.util.LinkedList
 
 const val SEARCH_HISTORY_KEY = "search_history_key"
 
-class SearchRepositoryImpl(private val application:Application) : SearchRepository {
+class SearchRepositoryImpl(application:Application) : SearchRepository {
 
     private val searchHistoryList: LinkedList<Track>
 

@@ -5,7 +5,7 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
 import com.example.playlistmaker.R
-import com.example.playlistmaker.sharing.data.ExternalNavigator
+import com.example.playlistmaker.sharing.domain.ExternalNavigator
 
 class ExternalNavigatorImpl(private val app: Application) : ExternalNavigator {
     override fun shareLink() {

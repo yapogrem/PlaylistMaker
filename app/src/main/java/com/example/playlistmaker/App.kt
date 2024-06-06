@@ -1,40 +1,33 @@
 package com.example.playlistmaker
 
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.content.res.Resources.Theme
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.playlistmaker.creator.Creator
-import kotlin.properties.Delegates
+import com.example.playlistmaker.settings.domain.SettingsInteractor
 
 
 const val PLAYLIST_MAKER = "playlist_maker_shared_preferences"
 const val NIGHT_MODE_KEY = "night_mode_key"
 
-lateinit var appContext: Context
 
 class App : Application() {
+    var theme : Boolean = false
 
-    var darkTheme : Boolean = false
-    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate() {
         super.onCreate()
-
         Creator.app = this
-        val systemTheme = isDarkThemeEnabled()
-        sharedPreferences = getSharedPreferences(PLAYLIST_MAKER, MODE_PRIVATE)
-        darkTheme = sharedPreferences.getBoolean(NIGHT_MODE_KEY,systemTheme)
-        darkTheme = isDarkThemeEnabled()
-        switchTheme(darkTheme)
+        val systemTheme = getSystemTheme()
+        val settingsInteractor: SettingsInteractor = Creator.getSettingsIterator()
+        theme = settingsInteractor.getThemeSettings(systemTheme)
+
+        switchTheme(theme)
     }
 
-    fun switchTheme(darkThemeEnabled: Boolean) {
-        //Сохраняем состояние в sharedPreferences
-        sharedPreferences.edit().putBoolean(NIGHT_MODE_KEY, darkThemeEnabled).apply()
-        //Переключаем тему
+    private fun switchTheme(theme: Boolean) {
         AppCompatDelegate.setDefaultNightMode(
-            if (darkThemeEnabled) {
+            if (theme) {
                 AppCompatDelegate.MODE_NIGHT_YES
             } else {
                 AppCompatDelegate.MODE_NIGHT_NO
@@ -42,7 +35,7 @@ class App : Application() {
         )
     }
 
-    private fun isDarkThemeEnabled(): Boolean {
+    private fun getSystemTheme(): Boolean {
         val defaultState: Int = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return defaultState == Configuration.UI_MODE_NIGHT_YES
     }

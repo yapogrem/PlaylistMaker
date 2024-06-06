@@ -35,7 +35,7 @@ class SettingsActivity : AppCompatActivity() {
 //Переключение Темной темы
         val themeSwitcher = binding.themeSwitcher
 //Переводим switch в сохраненное в SharedPreferences состояние
-        themeSwitcher.setChecked((applicationContext as App).darkTheme)
+        themeSwitcher.setChecked((applicationContext as App).theme)
 //Переключаем тему по нажатию на switch
         themeSwitcher.setOnCheckedChangeListener { _, checked ->
             viewModel.changeTheme(checked)
