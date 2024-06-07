@@ -1,5 +1,6 @@
 package com.example.playlistmaker.player.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -8,9 +9,9 @@ import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.ActivityMediaBinding
-import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.player.data.PlayerState
 import com.example.playlistmaker.player.data.impl.PlayerInteractorImpl
+import com.example.playlistmaker.search.domain.models.Track
 
 class PlayerActivity : AppCompatActivity() {
 
@@ -18,6 +19,7 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var viewModel: PlayerViewModel
     private lateinit var binding: ActivityMediaBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,7 +54,11 @@ class PlayerActivity : AppCompatActivity() {
                 PlayerState.STATE_PLAYING -> {
                     binding.mediaButtonPlay.setImageResource(R.drawable.media_button_pause)
                 }
-                PlayerState.STATE_COMPLETE,
+
+                PlayerState.STATE_COMPLETE -> {
+                    binding.mediaButtonPlay.setImageResource(R.drawable.media_button_play)
+                    binding.mediaTrackTime.text = "0:00"
+                }
                 PlayerState.STATE_PAUSED->{
                     binding.mediaButtonPlay.setImageResource(R.drawable.media_button_play)
                 }
@@ -76,5 +82,10 @@ class PlayerActivity : AppCompatActivity() {
         binding.mediaTrackYear.text = track.releaseDate.toString()
         binding.mediaTrackGenre.text = track.primaryGenreName
         binding.mediaTrackCountry.text = track.country
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.pause()
     }
 }

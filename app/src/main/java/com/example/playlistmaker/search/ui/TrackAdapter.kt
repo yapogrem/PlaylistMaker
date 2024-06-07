@@ -4,9 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.search.domain.models.Track
-import com.example.playlistmaker.search.data.Debounce
 import com.example.playlistmaker.player.ui.PlayerActivity
+import com.example.playlistmaker.search.data.Debounce
 
 
 class TrackAdapter(private val viewModel: SearchViewModel) :

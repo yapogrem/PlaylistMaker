@@ -1,4 +1,4 @@
-package com.example.playlistmaker.search.data.impl
+package com.example.playlistmaker.search.data.network.impl
 
 import com.example.playlistmaker.search.data.TracksResponse
 import com.example.playlistmaker.search.data.network.ITunesApi
@@ -34,13 +34,13 @@ class SearchTrackRepositoryImpl : SearchTrackRepository {
     }
 
     override fun getTracksRequest(inputSearch: String, callback: SearchCallback): List<Track> {
+        tracks.clear()
         iTunesService.searchTrack(inputSearch)
             .enqueue(object : Callback<TracksResponse> {
                 override fun onResponse(
                     call: Call<TracksResponse>,
                     response: Response<TracksResponse>
                 ) {
-                    tracks.clear()
                     if (response.code() == 200) {
                         if (response.body()?.results?.isNotEmpty() == true){
                             tracks.addAll(response.body()?.results!!.map { Track.mapped(it) })
@@ -52,15 +52,10 @@ class SearchTrackRepositoryImpl : SearchTrackRepository {
                         callback.changeStatus(StatusRequest.REQUEST_SERVER_ERROR)
                     }
                 }
-
                 override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
                     callback.changeStatus(StatusRequest.REQUEST_NETWORK_ERROR)
                 }
             })
          return tracks
     }
-
-//    fun getFoundTracks(): ArrayList<Track>{
-//        return tracks
-//    }
 }

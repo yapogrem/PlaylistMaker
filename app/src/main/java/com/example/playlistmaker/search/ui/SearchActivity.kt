@@ -13,8 +13,6 @@ import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.databinding.ActivityFindBinding
 import com.example.playlistmaker.search.data.Debounce
 import com.example.playlistmaker.search.ui.model.SearchState
-
-
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var viewModel: SearchViewModel
@@ -69,7 +67,9 @@ class SearchActivity : AppCompatActivity() {
             showHistory()
         }
         val simpleTextWatcher = object : TextWatcher {
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                showEmptyTracks()
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.isEmpty()!= true){
@@ -119,6 +119,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
     }
+    @SuppressLint("NotifyDataSetChanged")
     private fun showTracks() {
         trackAdapter.notifyDataSetChanged()
         binding.recyclerViewTrack.isVisible = true
@@ -142,6 +143,7 @@ class SearchActivity : AppCompatActivity() {
         binding.findProgressBar.isVisible = false
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showEmptyTracks() {
         trackAdapter.notifyDataSetChanged()
         binding.recyclerViewTrack.isVisible = false

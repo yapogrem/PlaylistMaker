@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.playlistmaker.search.data.impl.SearchTrackRepositoryImpl
+import com.example.playlistmaker.search.data.network.impl.SearchTrackRepositoryImpl
 import com.example.playlistmaker.search.data.network.StatusRequest
 import com.example.playlistmaker.search.domain.SearchCallback
 import com.example.playlistmaker.search.domain.SearchHistoryInteractor
@@ -28,7 +28,6 @@ class SearchViewModel(
                 }
             }
     }
-
     private var searchState = SearchTrackRepositoryImpl()
     private var tracks:List<Track> = ArrayList()
     lateinit var historyTracks: List<Track>
@@ -44,7 +43,6 @@ class SearchViewModel(
                 StatusRequest.REQUEST_SERVER_ERROR -> SearchState.SEARCH_ERROR
             }
         }
-
     }
 
     fun getScreenStateLiveData(): LiveData<SearchState> = screenStateLiveData
@@ -76,6 +74,4 @@ class SearchViewModel(
     fun getSizeSearch(): Int {
         return tracks.size
     }
-
-
 }

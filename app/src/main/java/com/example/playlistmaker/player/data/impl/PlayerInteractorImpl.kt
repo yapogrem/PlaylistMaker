@@ -11,7 +11,7 @@ import java.util.Locale
 
 class PlayerInteractorImpl : PlayerInteractor {
     companion object {
-        public const val DELAY = 1000L
+        const val DELAY = 300L
     }
 
     private val timerHandler = Handler(Looper.getMainLooper())
@@ -33,8 +33,10 @@ class PlayerInteractorImpl : PlayerInteractor {
         player!!.prepareAsync()
         this.sratusObserver = satusObserver
         player!!.setOnCompletionListener {
+            timerHandler.removeCallbacks(timerRunnable)
             satusObserver.onComplete()
         }
+
         this.timerObserver = timerObserver
     }
 
