@@ -4,34 +4,14 @@ package com.example.playlistmaker.player.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-
+import com.example.playlistmaker.player.data.PlayerInteractor
 import com.example.playlistmaker.player.data.PlayerState
 import com.example.playlistmaker.player.data.StatusObserver
 import com.example.playlistmaker.player.data.TimerObserver
 import com.example.playlistmaker.player.data.impl.PlayerInteractorImpl
 
 
-class PlayerViewModel(
-    private val url: String,
-    private val playerInteractor: PlayerInteractorImpl,
-) : ViewModel() {
-
-    companion object {
-        fun getViewModelFactory(
-            url: String,
-            playerInteractor: PlayerInteractorImpl,
-        ): ViewModelProvider.Factory =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    val viewModel=PlayerViewModel(url, playerInteractor).apply {
-                        playerInteractor.preparePlayer(url,statusObserver, timerObserver)
-                    }
-                    return viewModel as T
-                }
-            }
-    }
+class PlayerViewModel(private val playerInteractor: PlayerInteractor) : ViewModel() {
 
     private val statePlayerLiveData = MutableLiveData(PlayerState.STATE_COMPLETE)
     fun observeState(): LiveData<PlayerState> = statePlayerLiveData
@@ -48,10 +28,6 @@ class PlayerViewModel(
         playerInteractor.pause()
     }
 
-    fun currentPosition(): String {
-        return playerInteractor.currentPosition()
-    }
-
     fun playbackControl() {
         val  value = statePlayerLiveData.value ?: return
 
@@ -64,6 +40,13 @@ class PlayerViewModel(
             }
         }
     }
+
+    fun prepare(url: String?) {
+        if (url != null) {
+            playerInteractor.preparePlayer(url, statusObserver, timerObserver)
+        }
+    }
+
     val statusObserver = object: StatusObserver {
         override fun onStop() {
             statePlayerLiveData.postValue(PlayerState.STATE_PAUSED)

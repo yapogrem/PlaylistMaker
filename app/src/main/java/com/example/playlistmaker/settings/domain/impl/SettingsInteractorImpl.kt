@@ -1,11 +1,9 @@
 package com.example.playlistmaker.settings.domain.impl
 
-import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.settings.domain.SettingsInteractor
 import com.example.playlistmaker.settings.domain.SettingsRepository
 
-class SettingsInteractorImpl : SettingsInteractor {
-    private val settingsRepository: SettingsRepository = Creator.getSettingsRepository()
+class SettingsInteractorImpl (private val settingsRepository: SettingsRepository): SettingsInteractor {
     override fun getThemeSettings(isDark: Boolean): Boolean {
         return settingsRepository.getThemeSettings(isDark)
     }

@@ -2,10 +2,12 @@ package com.example.playlistmaker
 
 import android.app.Application
 import android.content.res.Configuration
-import android.content.res.Resources.Theme
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.playlistmaker.creator.Creator
+import com.example.playlistmaker.di.diModule
 import com.example.playlistmaker.settings.domain.SettingsInteractor
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import org.koin.java.KoinJavaComponent.getKoin
 
 
 const val PLAYLIST_MAKER = "playlist_maker_shared_preferences"
@@ -17,9 +19,13 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Creator.app = this
+        startKoin {
+            androidContext(this@App)
+            modules(diModule)
+        }
+
         val systemTheme = getSystemTheme()
-        val settingsInteractor: SettingsInteractor = Creator.getSettingsIterator()
+        val settingsInteractor: SettingsInteractor = getKoin().get()
         theme = settingsInteractor.getThemeSettings(systemTheme)
 
         switchTheme(theme)

@@ -8,35 +8,32 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
-import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.databinding.ActivityFindBinding
 import com.example.playlistmaker.search.data.Debounce
 import com.example.playlistmaker.search.ui.model.SearchState
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 class SearchActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: SearchViewModel
+    private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var binding: ActivityFindBinding
     private lateinit var trackAdapter: TrackAdapter
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
     private var searchField: String = ""
 
-    @SuppressLint("WrongViewCast", "MissingInflatedId", "NotifyDataSetChanged")
+    @SuppressLint("WrongViewCast", "MissingInflatedId", "NotifyDataSetChanged", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(
-            this,
-            SearchViewModel.getViewModelFactory(Creator.getSearchHistoryInteractor())
-        )[SearchViewModel::class.java]
-        viewModel.getScreenStateLiveData().observe(this) {
+        searchViewModel.getScreenStateLiveData().observe(this) {
             render(it)
+            println(it)
         }
 
         binding = ActivityFindBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val debounce = Debounce(viewModel)
-        trackAdapter = TrackAdapter(viewModel)
-        searchHistoryAdapter = SearchHistoryAdapter(viewModel)
+        val debounce = Debounce(searchViewModel)
+        trackAdapter = TrackAdapter(searchViewModel)
+        searchHistoryAdapter = SearchHistoryAdapter(searchViewModel)
         val inputEditText = binding.inputSearch
         binding.recyclerViewTrack.adapter = trackAdapter
         binding.recyclerSearchHistory.adapter = searchHistoryAdapter
@@ -55,12 +52,11 @@ class SearchActivity : AppCompatActivity() {
             findTrack(binding.inputSearch.text.toString())
         }
         binding.clearHistoryButton.setOnClickListener {
-            viewModel.clearSearchHistory()
-            showEmptyTracks()
+            searchViewModel.clearSearchHistory()
+            showHistory()
         }
         binding.clearSearch.setOnClickListener {
             inputEditText.setText("")
-
             val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(inputEditText.windowToken, 0)
             debounce.canselSearchDebounce()
@@ -109,7 +105,7 @@ class SearchActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun showHistory() {
         searchHistoryAdapter.notifyDataSetChanged()
-        if (viewModel.getCountHistory() == 0) showEmptyTracks() else {
+        if (searchViewModel.getCountHistory() == 0) showEmptyTracks() else {
             searchHistoryAdapter.notifyDataSetChanged()
             binding.recyclerViewTrack.isVisible = false
             binding.networkError.isVisible = false
@@ -167,7 +163,7 @@ class SearchActivity : AppCompatActivity() {
         binding.itemsNotFound.isVisible = false
         binding.searchHistory.isVisible = false
         binding.findProgressBar.isVisible = true
-        viewModel.findTrack(string)
+        searchViewModel.findTrack(string)
     }
     private fun render(state: SearchState) {
         when (state) {
