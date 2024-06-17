@@ -1,7 +1,7 @@
-package com.example.playlistmaker.search.data.dto
+package com.example.playlistmaker.search.domain.impl
 
 import android.content.SharedPreferences
-import com.example.playlistmaker.search.data.SearchRepository
+import com.example.playlistmaker.search.domain.SearchRepository
 import com.example.playlistmaker.search.domain.models.Track
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -10,7 +10,8 @@ import java.util.LinkedList
 
 const val SEARCH_HISTORY_KEY = "search_history_key"
 
-class SearchRepositoryImpl(private val sharedPrefs: SharedPreferences, private val gson: Gson) : SearchRepository {
+class SearchRepositoryImpl(private val sharedPrefs: SharedPreferences, private val gson: Gson) :
+    SearchRepository {
 
     private val searchHistoryList: LinkedList<Track>
 

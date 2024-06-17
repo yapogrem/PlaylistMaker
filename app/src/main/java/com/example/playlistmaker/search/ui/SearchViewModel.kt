@@ -53,6 +53,7 @@ class SearchViewModel(
     fun clearSearchHistory() {
         searchInteractor.clearSearchHistory()
         historyTracks = emptyList()
+
     }
 
     fun getTrackByPositionSearch(position: Int): Track {
