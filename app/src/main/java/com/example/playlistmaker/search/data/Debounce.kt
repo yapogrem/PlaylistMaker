@@ -33,6 +33,6 @@ class Debounce(private val viewModel: SearchViewModel) {
     }
     companion object {
         private const val CLICK_DEBOUNCE_DELAY = 1000L
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val SEARCH_DEBOUNCE_DELAY = 3000L
     }
 }

@@ -59,8 +59,6 @@
             android:padding="8dp"
             android:paddingStart="12dp"
             android:paddingEnd="32dp"
-            android:textCursorDrawable="@color/find_text_cursor"
-            android:lines="1"
             android:textFontWeight="400"
             android:fontFamily="@font/ys_display_medium"
             android:background="@drawable/rounded_background"

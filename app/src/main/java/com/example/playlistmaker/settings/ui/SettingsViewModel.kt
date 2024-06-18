@@ -1,7 +1,6 @@
 package com.example.playlistmaker.settings.ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.settings.domain.SettingsInteractor
 import com.example.playlistmaker.sharing.domain.SharingInteractor
 
@@ -27,18 +26,18 @@ class SettingsViewModel(
     }
 
 
-    companion object {
-        fun getViewModelFactory(
-            sharingInteractor: SharingInteractor,
-            settingsInteractor: SettingsInteractor
-        ): ViewModelProvider.Factory =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return SettingsViewModel(sharingInteractor, settingsInteractor) as T
-                }
-            }
-    }
+//    companion object {
+//        fun getViewModelFactory(
+//            sharingInteractor: SharingInteractor,
+//            settingsInteractor: SettingsInteractor
+//        ): ViewModelProvider.Factory =
+//            object : ViewModelProvider.Factory {
+//                @Suppress("UNCHECKED_CAST")
+//                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//                    return SettingsViewModel(sharingInteractor, settingsInteractor) as T
+//                }
+//            }
+//    }
 
 
 }

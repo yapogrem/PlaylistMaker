@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        setContentView(R.layout.activity_main)
 
         binding.buttonFind.setOnClickListener {
             val displayIntent = Intent(this, SearchActivity::class.java)

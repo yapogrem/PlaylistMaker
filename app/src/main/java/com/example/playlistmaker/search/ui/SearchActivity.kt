@@ -6,37 +6,32 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
-import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.databinding.ActivityFindBinding
 import com.example.playlistmaker.search.data.Debounce
 import com.example.playlistmaker.search.ui.model.SearchState
-class SearchActivity : AppCompatActivity() {
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-    private lateinit var viewModel: SearchViewModel
+class SearchActivity : AppCompatActivity() {
+    private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var binding: ActivityFindBinding
     private lateinit var trackAdapter: TrackAdapter
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
     private var searchField: String = ""
 
-    @SuppressLint("WrongViewCast", "MissingInflatedId", "NotifyDataSetChanged")
+    @SuppressLint("WrongViewCast", "MissingInflatedId", "NotifyDataSetChanged", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(
-            this,
-            SearchViewModel.getViewModelFactory(Creator.getSearchHistoryInteractor())
-        )[SearchViewModel::class.java]
-        viewModel.getScreenStateLiveData().observe(this) {
+        searchViewModel.getScreenStateLiveData().observe(this) {
             render(it)
         }
-
         binding = ActivityFindBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val debounce = Debounce(viewModel)
-        trackAdapter = TrackAdapter(viewModel)
-        searchHistoryAdapter = SearchHistoryAdapter(viewModel)
+        val debounce = Debounce(searchViewModel)
+        trackAdapter = TrackAdapter(searchViewModel)
+        searchHistoryAdapter = SearchHistoryAdapter(searchViewModel)
         val inputEditText = binding.inputSearch
         binding.recyclerViewTrack.adapter = trackAdapter
         binding.recyclerSearchHistory.adapter = searchHistoryAdapter
@@ -44,7 +39,6 @@ class SearchActivity : AppCompatActivity() {
         binding.searchBack.setOnClickListener {
             finish()
         }
-
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 findTrack(binding.inputSearch.text.toString())
@@ -55,19 +49,18 @@ class SearchActivity : AppCompatActivity() {
             findTrack(binding.inputSearch.text.toString())
         }
         binding.clearHistoryButton.setOnClickListener {
-            viewModel.clearSearchHistory()
-            showEmptyTracks()
+            searchViewModel.clearSearchHistory()
+            showEmptyScreen()
         }
         binding.clearSearch.setOnClickListener {
             inputEditText.setText("")
-
             val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(inputEditText.windowToken, 0)
             debounce.canselSearchDebounce()
             showHistory()
         }
-        val simpleTextWatcher = object : TextWatcher {
 
+        val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 showEmptyTracks()
             }
@@ -82,7 +75,7 @@ class SearchActivity : AppCompatActivity() {
                     searchHistoryAdapter.notifyDataSetChanged()
                     showHistory()
                 } else
-                    showEmptyTracks()
+                    showEmptyScreen()
             }
             override fun afterTextChanged(s: Editable?) {
             }
@@ -109,7 +102,7 @@ class SearchActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun showHistory() {
         searchHistoryAdapter.notifyDataSetChanged()
-        if (viewModel.getCountHistory() == 0) showEmptyTracks() else {
+        if (searchViewModel.getCountHistory() == 0) showEmptyScreen() else {
             searchHistoryAdapter.notifyDataSetChanged()
             binding.recyclerViewTrack.isVisible = false
             binding.networkError.isVisible = false
@@ -117,10 +110,13 @@ class SearchActivity : AppCompatActivity() {
             binding.searchHistory.isVisible = true
             binding.findProgressBar.isVisible = false
         }
-
     }
     @SuppressLint("NotifyDataSetChanged")
     private fun showTracks() {
+        if(binding.inputSearch.text.isEmpty()){
+            showHistory()
+            return
+        }
         trackAdapter.notifyDataSetChanged()
         binding.recyclerViewTrack.isVisible = true
         binding.networkError.isVisible = false
@@ -142,7 +138,6 @@ class SearchActivity : AppCompatActivity() {
         binding.searchHistory.isVisible = false
         binding.findProgressBar.isVisible = false
     }
-
     @SuppressLint("NotifyDataSetChanged")
     private fun showEmptyTracks() {
         trackAdapter.notifyDataSetChanged()
@@ -152,7 +147,6 @@ class SearchActivity : AppCompatActivity() {
         binding.searchHistory.isVisible = true
         binding.findProgressBar.isVisible = false
     }
-
     private fun showProgressBar() {
         binding.recyclerViewTrack.isVisible = false
         binding.networkError.isVisible = false
@@ -160,14 +154,20 @@ class SearchActivity : AppCompatActivity() {
         binding.searchHistory.isVisible = false
         binding.findProgressBar.isVisible = true
     }
-
+    private fun showEmptyScreen() {
+        binding.recyclerViewTrack.isVisible = false
+        binding.networkError.isVisible = false
+        binding.itemsNotFound.isVisible = false
+        binding.searchHistory.isVisible = false
+        binding.findProgressBar.isVisible = false
+    }
     private fun findTrack(string: String){
         binding.recyclerViewTrack.isVisible = false
         binding.networkError.isVisible = false
         binding.itemsNotFound.isVisible = false
         binding.searchHistory.isVisible = false
         binding.findProgressBar.isVisible = true
-        viewModel.findTrack(string)
+        searchViewModel.findTrack(string)
     }
     private fun render(state: SearchState) {
         when (state) {

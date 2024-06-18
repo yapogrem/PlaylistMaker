@@ -3,20 +3,20 @@ package com.example.playlistmaker.player.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.ActivityMediaBinding
 import com.example.playlistmaker.player.data.PlayerState
-import com.example.playlistmaker.player.data.impl.PlayerInteractorImpl
+
 import com.example.playlistmaker.search.domain.models.Track
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlayerActivity : AppCompatActivity() {
 
 
-    private lateinit var viewModel: PlayerViewModel
+    private val playerViewModel: PlayerViewModel by viewModel()
     private lateinit var binding: ActivityMediaBinding
 
     @SuppressLint("SetTextI18n")
@@ -24,13 +24,7 @@ class PlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val track = intent.getSerializableExtra("track") as Track
-
-        viewModel = ViewModelProvider(
-            this, PlayerViewModel.getViewModelFactory(
-                track.previewUrl!!,
-                PlayerInteractorImpl(),
-            )
-        )[PlayerViewModel::class.java]
+        playerViewModel.prepare(track.previewUrl)
 
         binding = ActivityMediaBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,10 +32,10 @@ class PlayerActivity : AppCompatActivity() {
 
 
         binding.mediaButtonPlay.setOnClickListener {
-            viewModel.playbackControl()
+            playerViewModel.playbackControl()
         }
 
-        //Кнопка назад
+
         binding.mediaBack.setOnClickListener {
             finish()
         }
@@ -49,7 +43,7 @@ class PlayerActivity : AppCompatActivity() {
 
         showTrack(track)
 
-        viewModel.observeState().observe(this){
+        playerViewModel.observeState().observe(this) {
             when(it){
                 PlayerState.STATE_PLAYING -> {
                     binding.mediaButtonPlay.setImageResource(R.drawable.media_button_pause)
@@ -64,7 +58,7 @@ class PlayerActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.observeTimer().observe(this){
+        playerViewModel.observeTimer().observe(this) {
             binding.mediaTrackTime.text=it
         }
     }
@@ -86,6 +80,6 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        viewModel.pause()
+        playerViewModel.pause()
     }
 }

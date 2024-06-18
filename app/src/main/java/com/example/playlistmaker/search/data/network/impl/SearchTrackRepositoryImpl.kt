@@ -6,32 +6,13 @@ import com.example.playlistmaker.search.data.network.SearchTrackRepository
 import com.example.playlistmaker.search.data.network.StatusRequest
 import com.example.playlistmaker.search.domain.SearchCallback
 import com.example.playlistmaker.search.domain.models.Track
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class SearchTrackRepositoryImpl : SearchTrackRepository {
+class SearchTrackRepositoryImpl(private val iTunesService: ITunesApi) : SearchTrackRepository {
 
-
-    private val iTunesService: ITunesApi
     private var tracks = ArrayList<Track>()
-
-    init {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
-        val iTunesBaseUrl = "https://itunes.apple.com"
-        val retrofit = Retrofit.Builder()
-            .baseUrl(iTunesBaseUrl).client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        iTunesService = retrofit.create(ITunesApi::class.java)
-
-    }
 
     override fun getTracksRequest(inputSearch: String, callback: SearchCallback): List<Track> {
         tracks.clear()
