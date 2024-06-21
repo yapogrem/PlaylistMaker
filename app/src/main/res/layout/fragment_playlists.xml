@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/Theme.PlaylistMaker">
+
+    <LinearLayout
+        android:id="@+id/placeholderNothingWasFound"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/new_playlist_button"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/text_color"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingHorizontal="16dp"
+            android:text="@string/new_playlist"
+            android:textAllCaps="false"
+            android:textColor="@color/settings_background"
+            android:textFontWeight="500"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/playlist_placeholder_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center"
+            android:layout_marginTop="46dp"
+            android:src="@drawable/no_item_find" />
+
+        <TextView
+            android:id="@+id/playlist_placeholder_text"
+            style="@style/MediathekTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_16"
+            android:gravity="center"
+            android:text="@string/empty_playlists" />
+    </LinearLayout>
+</FrameLayout>

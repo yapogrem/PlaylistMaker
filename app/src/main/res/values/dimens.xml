@@ -15,10 +15,8 @@
     <dimen name="find_padding_top">12dp</dimen>
     <dimen name="find_padding_bottom">12dp</dimen>
     <dimen name="find_text_size">26sp</dimen>
-
-
-
-
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
 
 
 </resources>
