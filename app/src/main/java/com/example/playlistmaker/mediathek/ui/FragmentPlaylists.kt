@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.example.playlistmaker.databinding.FragmentPlaylistsBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class FragmentPlaylists : Fragment() {
     private lateinit var binding: FragmentPlaylistsBinding
+    private val playlistsViewModel: PlaylistsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

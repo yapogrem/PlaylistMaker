@@ -32,5 +32,11 @@ val diModule = module {
     }
     factory { Gson() }
 
-    includes(playerDiModule, searchDiModule, settingsDiModule)
+    includes(
+        playerDiModule,
+        searchDiModule,
+        settingsDiModule,
+        playlistsDiModule,
+        favoritesTracksDiModule
+    )
 }
