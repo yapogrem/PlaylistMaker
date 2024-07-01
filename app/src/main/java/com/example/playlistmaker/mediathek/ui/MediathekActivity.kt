@@ -17,6 +17,9 @@ class MediathekActivity : AppCompatActivity() {
         binding = ActivityMediathekBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.mediathekBack.setOnClickListener {
+            finish()
+        }
         binding.viewPager.adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
 
         tabMediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

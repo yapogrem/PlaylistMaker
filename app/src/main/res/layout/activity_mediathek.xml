@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:id="@+id/media_back"
+            android:id="@+id/mediathek_back"
             style="@style/SettingsImageStyle"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
@@ -46,6 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabTextAppearance="@style/MyCustomTextAppearance"
+            app:tabIndicator = "@drawable/tab_indicator"
+
             />
 
         <androidx.viewpager2.widget.ViewPager2
