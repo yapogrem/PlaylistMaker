@@ -36,7 +36,5 @@ val diModule = module {
         playerDiModule,
         searchDiModule,
         settingsDiModule,
-        playlistsDiModule,
-        favoritesTracksDiModule
     )
 }

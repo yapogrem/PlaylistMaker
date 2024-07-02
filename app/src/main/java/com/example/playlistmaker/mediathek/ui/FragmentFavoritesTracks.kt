@@ -9,7 +9,7 @@ import com.example.playlistmaker.databinding.FragmentFavoritesTracksBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentFavoritesTracks : Fragment() {
-    private lateinit var binding: FragmentFavoritesTracksBinding
+    private var binding: FragmentFavoritesTracksBinding? = null
     private val favoritesTracksViewModel: FavoritesTracksViewModel by viewModel()
 
     override fun onCreateView(
@@ -17,6 +17,15 @@ class FragmentFavoritesTracks : Fragment() {
         savedInstanceState: Bundle?
     ): FrameLayout {
         binding = FragmentFavoritesTracksBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+    companion object {
+        fun newInstance() = FragmentPlaylists()
+    }
+
 }
