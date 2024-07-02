@@ -25,7 +25,7 @@ class FragmentFavoritesTracks : Fragment() {
         binding = null
     }
     companion object {
-        fun newInstance() = FragmentPlaylists()
+        fun newInstance() = FragmentFavoritesTracks()
     }
 
 }
