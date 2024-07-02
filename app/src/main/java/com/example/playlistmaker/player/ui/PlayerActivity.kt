@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
-import com.example.playlistmaker.databinding.ActivityMediaBinding
+import com.example.playlistmaker.databinding.ActivityPlayerBinding
 import com.example.playlistmaker.player.data.PlayerState
 
 import com.example.playlistmaker.search.domain.models.Track
@@ -17,7 +17,7 @@ class PlayerActivity : AppCompatActivity() {
 
 
     private val playerViewModel: PlayerViewModel by viewModel()
-    private lateinit var binding: ActivityMediaBinding
+    private lateinit var binding: ActivityPlayerBinding
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +26,7 @@ class PlayerActivity : AppCompatActivity() {
         val track = intent.getSerializableExtra("track") as Track
         playerViewModel.prepare(track.previewUrl)
 
-        binding = ActivityMediaBinding.inflate(layoutInflater)
+        binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.mediaButtonPlay.setImageResource(R.drawable.media_button_play)
 

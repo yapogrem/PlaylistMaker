@@ -32,7 +32,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="12dp"
             android:text="@string/main_settings"
-            android:textSize="26sp"
+            android:textSize="22sp"
             android:textColor="@color/text_color"
             tools:ignore="RtlSymmetry" />
 

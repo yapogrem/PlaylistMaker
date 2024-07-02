@@ -67,17 +67,17 @@
             android:imeOptions="actionDone"
             android:singleLine="true"
             />
+
         <ImageView
             android:id="@+id/clear_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="center_vertical|end"
             android:layout_marginStart="16dp"
             android:padding="16dp"
             android:src="@drawable/clear"
-            android:visibility="gone"
-            app:tint="@color/find_input_text"
-            />
+
+            app:tint="@color/find_input_text" />
     </FrameLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTrack"
