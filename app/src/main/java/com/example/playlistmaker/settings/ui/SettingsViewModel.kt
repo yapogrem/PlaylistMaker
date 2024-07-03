@@ -24,20 +24,4 @@ class SettingsViewModel(
     fun changeTheme(isDark: Boolean) {
         settingsInteractor.updateThemeSettings(isDark)
     }
-
-
-//    companion object {
-//        fun getViewModelFactory(
-//            sharingInteractor: SharingInteractor,
-//            settingsInteractor: SettingsInteractor
-//        ): ViewModelProvider.Factory =
-//            object : ViewModelProvider.Factory {
-//                @Suppress("UNCHECKED_CAST")
-//                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                    return SettingsViewModel(sharingInteractor, settingsInteractor) as T
-//                }
-//            }
-//    }
-
-
 }
