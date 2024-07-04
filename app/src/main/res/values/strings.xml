@@ -35,5 +35,14 @@
     <string name="button_play">Воспроизведение трека</string>
     <string name="button_favorites">Избранное</string>
     <string name="track_time_example">0:00</string>
+    <string name="favorite_tracks">Избранные треки</string>
+    <string name="playlists">Плейлисты</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mediathek">Медиатека</string>
+    <string name="empty_media">Ваша медиатека пуста</string>
+    <string name="empty_playlists">Вы не создали\n
+        ни одного плейлиста</string>
+    <string name="new_playlist">Новый плейлист</string>
 
 </resources>

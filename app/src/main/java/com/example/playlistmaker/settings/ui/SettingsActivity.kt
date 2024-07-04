@@ -28,6 +28,8 @@ class SettingsActivity : AppCompatActivity() {
 //Переключаем тему по нажатию на switch
         themeSwitcher.setOnCheckedChangeListener { _, checked ->
             settingsViewModel.changeTheme(checked)
+            val app=applicationContext as App
+            app.theme=checked
         }
 
         val displayShare = binding.settingsShare
@@ -44,7 +46,6 @@ class SettingsActivity : AppCompatActivity() {
         displayUserAgreement.setOnClickListener {
             settingsViewModel.openTermsUser()
         }
-
     }
 }
 

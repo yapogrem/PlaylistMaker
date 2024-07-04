@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@style/Theme.PlaylistMaker"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+>
+    <LinearLayout
+        android:id="@+id/placeholderNothingWasFound"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/placeholder_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center"
+            android:layout_marginTop="106dp"
+            android:src="@drawable/no_item_find"/>
+
+        <TextView
+            style="@style/MediathekTextStyle"
+            android:id="@+id/placeholder_text"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginHorizontal="@dimen/margin_24"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical|center"
+            android:text="@string/empty_media" />
+    </LinearLayout>
+</FrameLayout>
