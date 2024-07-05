@@ -24,6 +24,7 @@ class FragmentFavoritesTracks : Fragment() {
         super.onDestroyView()
         binding = null
     }
+
     companion object {
         fun newInstance() = FragmentFavoritesTracks()
     }

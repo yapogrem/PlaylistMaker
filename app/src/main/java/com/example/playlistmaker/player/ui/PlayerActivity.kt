@@ -14,8 +14,6 @@ import com.example.playlistmaker.search.domain.models.Track
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlayerActivity : AppCompatActivity() {
-
-
     private val playerViewModel: PlayerViewModel by viewModel()
     private lateinit var binding: ActivityPlayerBinding
 
@@ -35,14 +33,11 @@ class PlayerActivity : AppCompatActivity() {
             playerViewModel.playbackControl()
         }
 
-
         binding.mediaBack.setOnClickListener {
             finish()
         }
 
-
         showTrack(track)
-
         playerViewModel.observeState().observe(this) {
             when(it){
                 PlayerState.STATE_PLAYING -> {

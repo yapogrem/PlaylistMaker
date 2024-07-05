@@ -1,31 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/settings_background"
+    tools:context="com.example.playlistmaker.mediathek.ui.MediathekFragment"
     >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageButton
-            android:id="@+id/mediathek_back"
-            style="@style/SettingsImageStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="56dp"
-            android:layout_marginStart="20dp"
-            android:contentDescription="@string/button_back"
-            android:src="@drawable/arrow_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/ys_display_medium"
             android:paddingTop="16dp"
             android:paddingBottom="12dp"
@@ -35,7 +22,6 @@
             android:textSize="22sp"
             app:layout_constraintLeft_toRightOf="@+id/media_back"
             app:layout_constraintTop_toTopOf="parent" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

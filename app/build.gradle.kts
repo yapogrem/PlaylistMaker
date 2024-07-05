@@ -62,5 +62,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     val koinVersion = "3.3.0"
     implementation ("io.insert-koin:koin-android:$koinVersion")
-
+    val navigationFragmentVersion = "2.5.3"
+    implementation ("androidx.navigation:navigation-fragment-ktx:$navigationFragmentVersion")
+    val navigationUiVersion = "2.5.3"
+    implementation ("androidx.navigation:navigation-ui-ktx:$navigationUiVersion")
 }

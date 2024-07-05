@@ -7,25 +7,12 @@
     android:layout_height="match_parent"
     android:layout_x="0dp"
     android:background="@color/settings_background"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/settings_back"
-            style="@style/SettingsImageStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/find_margin_start"
-            android:layout_marginEnd="@dimen/find_margin_end"
-            android:src="@drawable/arrow_back" />
+    android:orientation="vertical"
+    tools:context="com.example.playlistmaker.settings.ui.SettingsFragment"
+    >
 
         <TextView
+            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
@@ -35,8 +22,6 @@
             android:textSize="22sp"
             android:textColor="@color/text_color"
             tools:ignore="RtlSymmetry" />
-
-    </LinearLayout>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/themeSwitcher"
