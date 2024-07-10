@@ -12,10 +12,9 @@ import retrofit2.Response
 
 class SearchTrackRepositoryImpl(private val iTunesService: ITunesApi) : SearchTrackRepository {
 
-    private var tracks = ArrayList<Track>()
 
     override fun getTracksRequest(inputSearch: String, callback: SearchCallback): List<Track> {
-        tracks.clear()
+        val tracks= ArrayList<Track>()
         iTunesService.searchTrack(inputSearch)
             .enqueue(object : Callback<TracksResponse> {
                 override fun onResponse(

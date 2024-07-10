@@ -17,10 +17,10 @@ class MediathekFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMediathekBinding.inflate(layoutInflater)
 
-        binding.viewPager.adapter = childFragmentManager?.let { ViewPagerAdapter(it, lifecycle) }
+        binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
 
         tabMediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
@@ -30,9 +30,5 @@ class MediathekFragment : Fragment() {
         }
         tabMediator.attach()
         return binding.root
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        tabMediator.detach()
     }
 }

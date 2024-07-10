@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
-import com.example.playlistmaker.databinding.FragmentFavoritesTracksBinding
 import com.example.playlistmaker.databinding.FragmentPlaylistsBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class FragmentPlaylists : Fragment() {
+class PlaylistsFragment : Fragment() {
     private var binding: FragmentPlaylistsBinding? = null
     private val playlistsViewModel: PlaylistsViewModel by viewModel()
 
@@ -28,7 +27,7 @@ class FragmentPlaylists : Fragment() {
     }
 
     companion object {
-        fun newInstance() = FragmentPlaylists()
+        fun newInstance() = PlaylistsFragment()
         }
     }
 

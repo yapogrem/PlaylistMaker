@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.playlistmaker.player.data.PlayerInteractor
-import com.example.playlistmaker.player.data.PlayerState
 import com.example.playlistmaker.player.data.StatusObserver
 import com.example.playlistmaker.player.data.TimerObserver
 import com.example.playlistmaker.player.data.impl.PlayerInteractorImpl
@@ -61,7 +60,7 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor) : ViewMode
         }
 
     }
-    val timerObserver = object: TimerObserver{
+    private val timerObserver = object: TimerObserver{
         override fun updateTimer(value: Int) {
             var seconds = value / PlayerInteractorImpl.DELAY
             val minutes = seconds / 60

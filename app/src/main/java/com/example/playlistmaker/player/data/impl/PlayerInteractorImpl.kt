@@ -11,7 +11,7 @@ import java.util.Locale
 
 class PlayerInteractorImpl(var player: MediaPlayer) : PlayerInteractor {
     companion object {
-        const val DELAY = 300L
+        const val DELAY = 1000L
     }
 
     private val timerHandler = Handler(Looper.getMainLooper())

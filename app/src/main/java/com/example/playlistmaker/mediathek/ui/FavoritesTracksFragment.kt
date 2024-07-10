@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.playlistmaker.databinding.FragmentFavoritesTracksBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentFavoritesTracks : Fragment() {
+class FavoritesTracksFragment : Fragment() {
     private var binding: FragmentFavoritesTracksBinding? = null
     private val favoritesTracksViewModel: FavoritesTracksViewModel by viewModel()
 
@@ -26,6 +26,6 @@ class FragmentFavoritesTracks : Fragment() {
     }
 
     companion object {
-        fun newInstance() = FragmentFavoritesTracks()
+        fun newInstance() = FavoritesTracksFragment()
     }
 }

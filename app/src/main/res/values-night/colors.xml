@@ -14,4 +14,5 @@
     <color name="media_white_black">#000000</color>
     <color name="media_black_white">#FFFFFF</color>
     <color name="media_button_color">#FFFFFF</color>
+    <color name="no_active_menu">#FFFFFF</color>
 </resources>
