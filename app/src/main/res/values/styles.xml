@@ -71,9 +71,6 @@
         <item name="textAllCaps">false</item>
     </style>
 
-
-
-
     <dimen name="text_size_14">14</dimen>
     <dimen name="padding_16">16dp</dimen>
 </resources>

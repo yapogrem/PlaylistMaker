@@ -1,8 +1,7 @@
-package com.example.playlistmaker.search.data
+package com.example.playlistmaker.search.ui
 
 import android.os.Handler
 import android.os.Looper
-import com.example.playlistmaker.search.ui.SearchViewModel
 
 class Debounce(private val viewModel: SearchViewModel) {
     private var isClickAllowed = true

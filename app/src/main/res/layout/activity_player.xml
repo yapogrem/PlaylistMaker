@@ -48,37 +48,43 @@
 
     <TextView
         android:id="@+id/media_track_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:maxLines="1"
         android:textColor="@color/text_color"
         android:textSize="24sp"
+        android:ellipsize="end"
+        android:gravity="start"
         app:layout_constraintBottom_toTopOf="@+id/media_artist_name"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         tools:text="TrackName" />
 
     <TextView
         android:id="@+id/media_artist_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:textColor="@color/text_color"
         android:textSize="16sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintBottom_toTopOf="@+id/media_button_play"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         tools:text="Author name" />
 
     <ImageView
         android:id="@+id/media_button_play_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/media_white_black"
         android:contentDescription="@string/button_play_list"
         android:src="@drawable/media_button_play_list"
         app:layout_constraintBottom_toBottomOf="@+id/media_button_play"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
-        app:layout_constraintTop_toTopOf="@+id/media_button_play" />
+        app:layout_constraintTop_toTopOf="@+id/media_button_play"
+        />
 
     <ImageView
         android:id="@+id/media_button_play"
@@ -157,6 +163,8 @@
         android:layout_height="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="end"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/text_color"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/media_track_year"

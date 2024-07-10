@@ -5,8 +5,6 @@ import android.content.Intent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.player.ui.PlayerActivity
-import com.example.playlistmaker.search.data.Debounce
-
 
 class TrackAdapter(private val viewModel: SearchViewModel) :
     RecyclerView.Adapter<TrackViewHolder>() {
